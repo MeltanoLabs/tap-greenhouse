@@ -1,0 +1,58 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "integer"
+    },
+    "created_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "updated_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "sort_order": {
+      "type": "integer"
+    },
+    "active": {
+      "type": "boolean"
+    },
+    "name": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "demographic_question_set_id": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "required": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "answer_type": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "multi_value_single_select",
+        "multi_value_multi_select"
+      ]
+    }
+  },
+  "description": "Schema for the 'demographic_questions' stream, linked to the '/v3/demographic_questions' endpoint."
+}

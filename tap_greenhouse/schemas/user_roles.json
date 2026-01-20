@@ -1,0 +1,29 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "integer"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "role_type": {
+      "type": "string",
+      "enum": [
+        "deprecated_interviewer",
+        "job_admin",
+        "site_admin"
+      ]
+    },
+    "name": {
+      "type": "string"
+    }
+  },
+  "description": "Schema for the 'user_roles' stream, linked to the '/v3/user_roles' endpoint."
+}

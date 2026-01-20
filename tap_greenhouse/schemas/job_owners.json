@@ -1,0 +1,35 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "integer"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "job_id": {
+      "type": "integer"
+    },
+    "user_id": {
+      "type": "integer"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "sourcer",
+        "recruiter",
+        "coordinator"
+      ]
+    },
+    "responsible": {
+      "type": "boolean"
+    }
+  },
+  "description": "Schema for the 'job_owners' stream, linked to the '/v3/job_owners' endpoint."
+}

@@ -1,0 +1,109 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "integer"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "application_id": {
+      "type": "integer"
+    },
+    "rejected_by_id": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "rejection_note_id": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "rejection_reason_id": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "rejected_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "question_custom_fields": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "name",
+          "type",
+          "value"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "value": {
+            "anyOf": [
+              {
+                "type": [
+                  "object",
+                  "null"
+                ]
+              },
+              {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              {
+                "type": [
+                  "number",
+                  "null"
+                ]
+              },
+              {
+                "type": [
+                  "integer",
+                  "null"
+                ]
+              },
+              {
+                "type": [
+                  "array",
+                  "null"
+                ]
+              },
+              {
+                "type": [
+                  "boolean",
+                  "null"
+                ]
+              }
+            ]
+          }
+        }
+      }
+    }
+  },
+  "description": "Schema for the 'rejection_details' stream, linked to the '/v3/rejection_details' endpoint."
+}

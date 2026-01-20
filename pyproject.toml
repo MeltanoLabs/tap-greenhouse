@@ -1,6 +1,6 @@
 [project]
 name = "tap-greenhouse"
-version = "0.0.1"
+dynamic = ["version"]
 description = "Singer tap for Greenhouse, built with the Meltano Singer SDK."
 readme = "README.md"
 authors = [{ name = "Edgar Ramírez-Mondragón", email = "emondragon@matatika.com" }]
@@ -24,6 +24,7 @@ requires-python = ">=3.10"
 dependencies = [
     "singer-sdk~=0.53.5",
     "requests~=2.32.3",
+    "tomli>=2.4.0 ; python_full_version < '3.11'",
     "typing-extensions>=4.5.0; python_version < '3.13'",
 ]
 
@@ -39,6 +40,10 @@ tap-greenhouse = 'tap_greenhouse.tap:TapGreenhouse.cli'
 [dependency-groups]
 dev = [
     { include-group = "test" },
+    { include-group = "typing" },
+    "requests>=2.32.5",
+    "requests-cache>=1.2.1",
+    "urllib3>=2.6.3",
 ]
 test = [
     "pytest>=9",
@@ -47,9 +52,15 @@ test = [
 ]
 typing = [
     "mypy>=1.16.0",
+    "requests-cache",
+    "tomli",
     "ty>=0.0.1-alpha.16",
     "types-requests",
 ]
+
+[tool.hatch.version]
+fallback-version = "0.0.0.dev0"
+source = "vcs"
 
 [tool.pytest]
 addopts = [
@@ -61,6 +72,7 @@ addopts = [
 filterwarnings = [
     "error",
     "once:No records were available to test:UserWarning",
+    "once:Fields in transformed catalog but not in records:UserWarning",
 ]
 log_level = "INFO"
 minversion = "9.0"
@@ -81,7 +93,7 @@ warn_unused_configs = true
 warn_unused_ignores = true
 
 [tool.ruff]
-line-length = 100
+line-length = 120
 required-version = ">=0.14"
 
 [tool.ruff.lint]
@@ -100,6 +112,7 @@ convention = "google"
 [build-system]
 requires = [
     "hatchling>=1,<2",
+    "hatch-vcs",
 ]
 build-backend = "hatchling.build"
 

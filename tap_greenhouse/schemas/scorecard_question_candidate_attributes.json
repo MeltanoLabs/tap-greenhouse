@@ -1,0 +1,24 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "integer"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "scorecard_question_id": {
+      "type": "integer"
+    },
+    "focus_candidate_attribute_id": {
+      "type": "integer"
+    }
+  },
+  "description": "Schema for the 'scorecard_question_candidate_attributes' stream, linked to the '/v3/scorecard_question_candidate_attributes' endpoint."
+}

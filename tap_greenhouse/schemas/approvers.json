@@ -1,0 +1,105 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "integer"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "sort_order": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "user_id": {
+      "type": "integer"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "waiting",
+        "due",
+        "approved",
+        "rejected"
+      ]
+    },
+    "resolved_by_id": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "resolved_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "request_sent_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "version_sent": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "reminder_sent_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "reminder_sent_by_id": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "reminders_sent": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "approver_group_id": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "added_by_custom_field_id": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "send_auto_reminder_at": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "auto_reminders_sent": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    }
+  },
+  "description": "Schema for the 'approvers' stream, linked to the '/v3/approvers' endpoint."
+}

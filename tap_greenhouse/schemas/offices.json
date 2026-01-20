@@ -1,0 +1,45 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "integer"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "name": {
+      "type": "string"
+    },
+    "parent_id": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "external_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "location": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "primary_in_house_contact_user_id": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    }
+  },
+  "description": "Schema for the 'offices' stream, linked to the '/v3/offices' endpoint."
+}

@@ -1,0 +1,30 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "integer"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "job_id": {
+      "type": "integer"
+    },
+    "sort_order": {
+      "type": "integer"
+    },
+    "name": {
+      "type": "string"
+    },
+    "active": {
+      "type": "boolean"
+    }
+  },
+  "description": "Schema for the 'job_interview_stages' stream, linked to the '/v3/job_interview_stages' endpoint."
+}

@@ -1,0 +1,163 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "integer"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "field_type": {
+      "type": "string",
+      "enum": [
+        "job",
+        "opening",
+        "standard",
+        "offer",
+        "compensation_frequency",
+        "candidate",
+        "referral_question",
+        "application",
+        "rejection_question",
+        "form",
+        "agency_question",
+        "user_attribute"
+      ]
+    },
+    "sort_order": {
+      "type": "integer"
+    },
+    "name": {
+      "type": "string"
+    },
+    "value_type": {
+      "type": "string",
+      "enum": [
+        "short_text",
+        "long_text",
+        "yes_no",
+        "single_select",
+        "multi_select",
+        "currency",
+        "number",
+        "date",
+        "url",
+        "currency_range",
+        "number_range",
+        "user",
+        "linked",
+        "header",
+        "statement",
+        "attachment",
+        "rich_text"
+      ]
+    },
+    "private": {
+      "type": "boolean"
+    },
+    "required": {
+      "type": "boolean"
+    },
+    "require_approval": {
+      "type": "boolean"
+    },
+    "trigger_new_version": {
+      "type": "boolean"
+    },
+    "active": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "updated_by_id": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "internal_type": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "employment_type",
+        "offer_documents",
+        "start_date",
+        "school_name",
+        "degree",
+        "discipline",
+        "offer_opening",
+        null
+      ]
+    },
+    "expose_in_job_board_api": {
+      "type": "boolean"
+    },
+    "placeholder": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "name_key": {
+      "type": "string"
+    },
+    "description": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "application_type": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "all_applications",
+        "candidate_applications",
+        "prospect_applications",
+        null
+      ]
+    },
+    "api_only": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "use_for_job_approvals": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "use_for_offer_approvals": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "template_token_string": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "default_value": {
+      "type": [
+        "object",
+        "null"
+      ]
+    }
+  },
+  "description": "Schema for the 'custom_fields' stream, linked to the '/v3/custom_fields' endpoint."
+}

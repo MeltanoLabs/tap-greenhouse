@@ -1,0 +1,148 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "integer"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "name": {
+      "type": "string"
+    },
+    "requisition_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "notes": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "confidential": {
+      "type": "boolean"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "open",
+        "draft",
+        "closed"
+      ]
+    },
+    "opened_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "closed_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "is_template": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "copied_from_id": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "department_id": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "office_ids": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": "integer"
+      }
+    },
+    "custom_fields": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": true,
+        "required": [
+          "name",
+          "type",
+          "value"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "value": {
+            "anyOf": [
+              {
+                "type": [
+                  "object",
+                  "null"
+                ]
+              },
+              {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              {
+                "type": [
+                  "number",
+                  "null"
+                ]
+              },
+              {
+                "type": [
+                  "integer",
+                  "null"
+                ]
+              },
+              {
+                "type": [
+                  "array",
+                  "null"
+                ]
+              },
+              {
+                "type": [
+                  "boolean",
+                  "null"
+                ]
+              }
+            ]
+          }
+        }
+      }
+    }
+  },
+  "description": "Schema for the 'jobs' stream, linked to the '/v3/jobs' endpoint."
+}

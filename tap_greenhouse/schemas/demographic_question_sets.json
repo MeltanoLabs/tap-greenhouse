@@ -1,0 +1,36 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "integer"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "active": {
+      "type": "boolean"
+    },
+    "enabled": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    }
+  },
+  "description": "Schema for the 'demographic_question_sets' stream, linked to the '/v3/demographic_question_sets' endpoint."
+}

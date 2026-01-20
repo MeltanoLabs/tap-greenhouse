@@ -1,0 +1,48 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "integer"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "application_id": {
+      "type": "integer"
+    },
+    "candidate_id": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "resume",
+        "cover_letter",
+        "take_home_test",
+        "offer_packet",
+        "offer_letter",
+        "signed_offer_letter",
+        "other",
+        "form_attachment",
+        "midfunnel_agreement",
+        "automated_agreement"
+      ]
+    },
+    "filename": {
+      "type": "string"
+    },
+    "url": {
+      "type": "string"
+    }
+  },
+  "description": "Schema for the 'attachments' stream, linked to the '/v3/attachments' endpoint."
+}

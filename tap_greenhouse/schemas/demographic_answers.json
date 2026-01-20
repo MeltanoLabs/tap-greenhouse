@@ -1,0 +1,36 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "integer"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "application_id": {
+      "type": "integer"
+    },
+    "demographic_question_id": {
+      "type": "integer"
+    },
+    "demographic_answer_option_id": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "free_form_text": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  },
+  "description": "Schema for the 'demographic_answers' stream, linked to the '/v3/demographic_answers' endpoint."
+}

@@ -1,0 +1,129 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "integer"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "version": {
+      "type": "integer"
+    },
+    "application_id": {
+      "type": "integer"
+    },
+    "job_id": {
+      "type": "integer"
+    },
+    "candidate_id": {
+      "type": "integer"
+    },
+    "opening_id": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "Created",
+        "Accepted",
+        "Rejected",
+        "Deprecated"
+      ]
+    },
+    "starts_on": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date"
+    },
+    "sent_on": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date"
+    },
+    "resolved_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "custom_fields": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": true,
+        "required": [
+          "name",
+          "type",
+          "value"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "value": {
+            "anyOf": [
+              {
+                "type": [
+                  "object",
+                  "null"
+                ]
+              },
+              {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              {
+                "type": [
+                  "number",
+                  "null"
+                ]
+              },
+              {
+                "type": [
+                  "integer",
+                  "null"
+                ]
+              },
+              {
+                "type": [
+                  "array",
+                  "null"
+                ]
+              },
+              {
+                "type": [
+                  "boolean",
+                  "null"
+                ]
+              }
+            ]
+          }
+        }
+      }
+    }
+  },
+  "description": "Schema for the 'offers' stream, linked to the '/v3/offers' endpoint."
+}

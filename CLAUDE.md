@@ -7,7 +7,7 @@ This document provides guidance for AI coding agents and developers working on t
 - **Project Type**: Singer Tap
 - **Source**: Greenhouse
 - **Stream Type**: REST
-- **Authentication**: Basic Auth (V1) or OAuth2 (V3)
+- **Authentication**: OAuth2 (V3 API)
 - **Framework**: Meltano Singer SDK
 
 ## Architecture
@@ -57,20 +57,20 @@ class MyNewStream(GreenhouseStream):
     ).to_dict()
 ```
 
-#### Modifying Authentication
+#### Authentication
 
-This tap supports two authentication methods:
+This tap uses the Greenhouse Harvest API V3 with OAuth2 client credentials authentication.
 
-**V1 Basic Auth:**
-- API key stored in `api_key` config property
-- Passed via Basic Auth header with API key as username, blank password
-- Use `GreenhouseBasicAuthenticator` class
-
-**V3 OAuth2:**
-- Client credentials stored in `client_key` and `client_secret` config properties
-- Implements OAuth2 client credentials flow
-- Use `GreenhouseOAuthAuthenticator` class
+**Configuration:**
+- Client credentials stored in `client_id` and `client_secret` config properties (both required)
+- Implements OAuth2 client credentials flow via `GreenhouseOAuthAuthenticator` class
 - Requires scopes to be configured in Greenhouse Dev Center
+
+**Required Scopes:**
+Each stream requires a corresponding scope in the format `harvest:{resource}:list`. For example:
+- `harvest:candidates:list` for the candidates stream
+- `harvest:applications:list` for the applications stream
+- See README.md for the complete list of scopes
 
 #### Handling Pagination
 

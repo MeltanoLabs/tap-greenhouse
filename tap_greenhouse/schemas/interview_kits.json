@@ -1,0 +1,42 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "integer"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "job_id": {
+      "type": "integer"
+    },
+    "job_interview_id": {
+      "type": "integer"
+    },
+    "exercises": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "anonymize_candidate": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "anonymize_resumes": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    }
+  },
+  "description": "Schema for the 'interview_kits' stream, linked to the '/v3/interview_kits' endpoint."
+}

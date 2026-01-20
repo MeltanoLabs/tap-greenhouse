@@ -1,0 +1,188 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "integer"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "title": {
+      "type": "string"
+    },
+    "internal": {
+      "type": "boolean"
+    },
+    "active": {
+      "type": "boolean"
+    },
+    "live": {
+      "type": "boolean"
+    },
+    "featured": {
+      "type": "boolean"
+    },
+    "first_published_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "content": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "internal_content": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "language": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "en",
+        "zh",
+        "zhHant",
+        "nl",
+        "fi",
+        "fr",
+        "de",
+        "iw",
+        "it",
+        "ja",
+        "ko",
+        "no",
+        "pl",
+        "pt",
+        "ru",
+        "es",
+        "se",
+        "tg",
+        "th"
+      ]
+    },
+    "public_url": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "uri"
+    },
+    "demographic_question_set_id": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "job_id": {
+      "type": "integer"
+    },
+    "job_board_id": {
+      "type": "integer"
+    },
+    "location": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "required": [
+        "type",
+        "name"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "free_text",
+            "office",
+            "custom_list"
+          ]
+        },
+        "name": {
+          "type": "string"
+        },
+        "id": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        }
+      }
+    },
+    "questions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "description": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "answer_type": {
+            "type": "string",
+            "enum": [
+              "short_text",
+              "long_text",
+              "boolean",
+              "single_select",
+              "multi_select",
+              "attachment",
+              "hidden"
+            ]
+          },
+          "required": {
+            "type": [
+              "boolean",
+              "null"
+            ]
+          },
+          "private": {
+            "type": "boolean"
+          },
+          "label": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "options": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "label": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "description": "Schema for the 'job_posts' stream, linked to the '/v3/job_posts' endpoint."
+}

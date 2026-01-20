@@ -1,0 +1,48 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "integer"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "name": {
+      "type": "string"
+    },
+    "active": {
+      "type": "boolean"
+    },
+    "description": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "department_ids": {
+      "type": "array",
+      "items": {
+        "type": "integer"
+      }
+    },
+    "office_ids": {
+      "type": "array",
+      "items": {
+        "type": "integer"
+      }
+    },
+    "job_ids": {
+      "type": "array",
+      "items": {
+        "type": "integer"
+      }
+    }
+  },
+  "description": "Schema for the 'prospect_pools' stream, linked to the '/v3/prospect_pools' endpoint."
+}

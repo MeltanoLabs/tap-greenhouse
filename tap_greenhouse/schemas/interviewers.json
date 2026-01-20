@@ -1,0 +1,45 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "integer"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "interview_id": {
+      "type": "integer"
+    },
+    "user_id": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "scorecard_id": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "email": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "response_status": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  },
+  "description": "Schema for the 'interviewers' stream, linked to the '/v3/interviewers' endpoint."
+}

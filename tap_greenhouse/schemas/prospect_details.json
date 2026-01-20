@@ -1,0 +1,45 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "integer"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "application_id": {
+      "type": "integer"
+    },
+    "pool_id": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "pool_stage_id": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "prospect_owner_id": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "department_id": {
+      "type": "integer"
+    },
+    "office_id": {
+      "type": "integer"
+    }
+  },
+  "description": "Schema for the 'prospect_details' stream, linked to the '/v3/prospect_details' endpoint."
+}

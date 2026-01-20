@@ -1,0 +1,107 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "integer"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "job_id": {
+      "type": "integer"
+    },
+    "application_id": {
+      "type": "integer"
+    },
+    "job_interview_id": {
+      "type": "integer"
+    },
+    "starts_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "ends_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "location": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "to_be_scheduled",
+        "scheduled",
+        "awaiting_feedback",
+        "complete",
+        "skipped",
+        "collect_feedback",
+        "to_be_sent",
+        "sent",
+        "received"
+      ]
+    },
+    "organizer_id": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "scheduled_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "all_day_start_on": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date"
+    },
+    "all_day_end_on": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date"
+    },
+    "external_event_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "video_conferencing_url": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "availability_received_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    }
+  },
+  "description": "Schema for the 'interviews' stream, linked to the '/v3/interviews' endpoint."
+}

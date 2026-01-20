@@ -1,0 +1,41 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "integer"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "job_id": {
+      "type": "integer"
+    },
+    "user_id": {
+      "type": "integer"
+    },
+    "body": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "visibility": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "admin_only_visible",
+        "privately_visible",
+        null
+      ]
+    }
+  },
+  "description": "Schema for the 'job_notes' stream, linked to the '/v3/job_notes' endpoint."
+}
