@@ -65,25 +65,77 @@ This tap uses the **Greenhouse Harvest API V3** with OAuth2 client credentials a
 
 #### Required Scopes
 
-Enable the following scopes in Greenhouse Dev Center based on which streams you need:
+Enable the following scopes in Greenhouse Dev Center based on which streams you need. Scopes follow the format `harvest:{resource}:list`.
 
-| Stream | Required Scope |
-|--------|----------------|
-| applications | `harvest:applications:list` |
-| candidates | `harvest:candidates:list` |
-| jobs | `harvest:jobs:list` |
-| users | `harvest:users:list` |
-| departments | `harvest:departments:list` |
-| offices | `harvest:offices:list` |
-| offers | `harvest:offers:list` |
-| scheduled_interviews | `harvest:scheduled_interviews:list` |
-| job_stages | `harvest:job_stages:list` |
-| scorecards | `harvest:scorecards:list` |
-| sources | `harvest:sources:list` |
-| rejection_reasons | `harvest:rejection_reasons:list` |
-| job_posts | `harvest:job_posts:list` |
-| custom_fields | `harvest:custom_fields:list` |
-| activity_feed | `harvest:candidates:activity_feed:list` |
+## Available Streams
+
+This tap supports 63 streams from the Greenhouse Harvest API V3:
+
+| Stream | Replication Key | Description |
+|--------|-----------------|-------------|
+| `application_stages` | `updated_at` | Application stage history |
+| `applications` | `last_activity_at` | Job applications |
+| `applied_candidate_tags` | `updated_at` | Tags applied to candidates |
+| `approval_flows` | `updated_at` | Approval workflows |
+| `approver_groups` | `updated_at` | Groups of approvers |
+| `approvers` | `updated_at` | Individual approvers |
+| `attachments` | `updated_at` | Candidate attachments |
+| `candidate_attribute_types` | `updated_at` | Candidate attribute type definitions |
+| `candidate_educations` | `updated_at` | Candidate education records |
+| `candidate_employments` | `updated_at` | Candidate employment history |
+| `candidate_tags` | `updated_at` | Available candidate tags |
+| `candidates` | `last_activity_at` | Candidate profiles |
+| `close_reasons` | `updated_at` | Job close reasons |
+| `custom_field_departments` | `updated_at` | Custom field department assignments |
+| `custom_field_offices` | `updated_at` | Custom field office assignments |
+| `custom_fields` | `updated_at` | Custom field definitions |
+| `default_interviewers` | `updated_at` | Default interviewers for job stages |
+| `demographic_answer_options` | None | Demographic question answer options |
+| `demographic_answers` | `updated_at` | Candidate demographic answers |
+| `demographic_question_sets` | `updated_at` | Demographic question sets |
+| `demographic_questions` | None | Demographic questions |
+| `departments` | `updated_at` | Company departments |
+| `eeoc` | `updated_at` | EEOC data for applications |
+| `focus_candidate_attributes` | `updated_at` | Focus attributes for candidates |
+| `future_job_permissions` | `updated_at` | Future job permission settings |
+| `interview_kits` | `updated_at` | Interview kit content |
+| `interviewer_tags` | `updated_at` | Tags for interviewers |
+| `interviewers` | `updated_at` | Interview participants |
+| `interviews` | `updated_at` | Scheduled interviews |
+| `job_board_custom_locations` | `updated_at` | Custom job board locations |
+| `job_candidate_attributes` | `updated_at` | Job-specific candidate attributes |
+| `job_hiring_managers` | `updated_at` | Hiring managers for jobs |
+| `job_interview_stages` | `updated_at` | Interview stages for jobs |
+| `job_interviews` | `updated_at` | Interview definitions for job stages |
+| `job_notes` | `updated_at` | Notes on jobs |
+| `job_owners` | `updated_at` | Job owners and coordinators |
+| `job_post_locations` | `updated_at` | Locations for job posts |
+| `job_posts` | `updated_at` | Job postings |
+| `jobs` | `updated_at` | Job requisitions |
+| `notes` | `updated_at` | Candidate notes |
+| `offers` | `updated_at` | Job offers |
+| `offices` | `updated_at` | Company offices |
+| `openings` | `updated_at` | Job openings |
+| `pay_input_ranges` | `updated_at` | Pay ranges for jobs |
+| `prospect_details` | `updated_at` | Prospect pool details |
+| `prospect_pool_stages` | `updated_at` | Stages within prospect pools |
+| `prospect_pools` | `updated_at` | Prospect pools |
+| `referrers` | `updated_at` | Referral sources |
+| `rejection_details` | `updated_at` | Application rejection details |
+| `rejection_reasons` | `updated_at` | Available rejection reasons |
+| `scorecard_candidate_attributes` | `updated_at` | Candidate attributes on scorecards |
+| `scorecard_question_answer_options` | `updated_at` | Answer options for scorecard questions |
+| `scorecard_question_answers` | `updated_at` | Answers to scorecard questions |
+| `scorecard_question_candidate_attributes` | `updated_at` | Candidate attributes linked to questions |
+| `scorecard_question_options` | `updated_at` | Options for scorecard questions |
+| `scorecard_questions` | `updated_at` | Scorecard questions |
+| `scorecards` | `updated_at` | Interview scorecards |
+| `sources` | `updated_at` | Candidate sources |
+| `tracking_links` | `updated_at` | Job tracking links |
+| `user_emails` | `updated_at` | User email addresses |
+| `user_job_permissions` | `updated_at` | User permissions on jobs |
+| `user_roles` | `updated_at` | User role definitions |
+| `users` | `updated_at` | Greenhouse users |
 
 ## Usage
 

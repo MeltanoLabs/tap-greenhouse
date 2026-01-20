@@ -1,13 +1,13 @@
-# AGENTS.md - AI Agent Development Guide for tap-greenhouse
+# CLAUDE.md - AI Agent Development Guide for tap-greenhouse
 
 This document provides guidance for AI coding agents and developers working on this Singer tap.
 
 ## Project Overview
 
 - **Project Type**: Singer Tap
-- **Source**: Greenhouse
+- **Source**: Greenhouse Harvest API V3
 - **Stream Type**: REST
-- **Authentication**: OAuth2 (V3 API)
+- **Authentication**: OAuth2 (client credentials)
 - **Framework**: Meltano Singer SDK
 
 ## Architecture
@@ -16,9 +16,34 @@ This tap follows the Singer specification and uses the Meltano Singer SDK to ext
 
 ### Key Components
 
-1. **Tap Class** (`tap_greenhouse/tap.py`): Main entry point, defines streams and configuration
-1. **Client** (`tap_greenhouse/client.py`): Handles API communication and authentication
-1. **Streams** (`tap_greenhouse/streams.py`): Define data streams and their schemas
+1. **Tap Class** (`tap_greenhouse/tap.py`): Main entry point, defines configuration schema
+2. **Client** (`tap_greenhouse/client.py`): API client, authentication, and `GreenhouseStream` base class
+3. **Stream Definitions** (`tap_greenhouse/streams.toml`): TOML file defining stream names, paths, and replication keys
+4. **Schemas** (`tap_greenhouse/schemas/*.json`): JSON Schema files for each stream
+
+### Project Structure
+
+```
+tap-greenhouse/
+├── tap_greenhouse/
+│   ├── __init__.py
+│   ├── tap.py              # Main tap class with config schema
+│   ├── client.py           # GreenhouseStream base class and OAuth authenticator
+│   ├── streams.toml        # Stream definitions (name, path, replication_key)
+│   └── schemas/            # Auto-generated JSON Schema files for each stream
+│       ├── __init__.py
+│       ├── applications.json
+│       ├── candidates.json
+│       └── ... (63 schema files)
+├── scripts/
+│   └── update_catalog.py   # Script to regenerate schemas from API docs
+├── tests/
+│   ├── __init__.py
+│   └── test_core.py
+├── meltano.yml             # Meltano configuration
+├── pyproject.toml          # Dependencies and metadata
+└── README.md               # User documentation
+```
 
 ## Development Guidelines for AI Agents
 
@@ -26,7 +51,7 @@ This tap follows the Singer specification and uses the Meltano Singer SDK to ext
 
 Before making changes, ensure you understand these Singer concepts:
 
-- **Streams**: Individual data endpoints (e.g., users, orders, transactions)
+- **Streams**: Individual data endpoints (e.g., users, candidates, applications)
 - **State**: Tracks incremental sync progress using bookmarks
 - **Catalog**: Metadata about available streams and their schemas
 - **Records**: Individual data items emitted by the tap
@@ -36,26 +61,38 @@ Before making changes, ensure you understand these Singer concepts:
 
 #### Adding a New Stream
 
-1. Define stream class in `tap_greenhouse/streams.py`
-1. Set `name`, `path`, `primary_keys`, and `replication_key` (set this to `None` if not applicable)
-1. Define schema using `PropertiesList` or JSON Schema
-1. Register stream in the tap's `discover_streams()` method
+1. Add stream definition to `tap_greenhouse/streams.toml`:
+   ```toml
+   [[streams]]
+   name = "my_new_stream"
+   path = "/v3/my_resource"
+   replication_key = "updated_at"  # or "" for no replication key
+   ```
 
-Example:
+2. Run the schema update script to auto-generate the JSON schema:
+   ```bash
+   uv run scripts/update_catalog.py
+   ```
 
-```python
-class MyNewStream(GreenhouseStream):
-    name = "my_new_stream"
-    path = "/my_resource"
-    primary_keys = ["id"]
-    replication_key = "updated_at"
+3. If the schema needs fixes (API docs don't match actual responses), add preprocessing logic to `scripts/update_catalog.py` in `_preprocess_schema()`.
 
-    schema = th.PropertiesList(
-        th.Property("id", th.IntegerType, required=True),
-        th.Property("name", th.StringType),
-        th.Property("updated_at", th.DateTimeType),
-    ).to_dict()
-```
+4. Run tests to verify: `uv run pytest`
+
+#### Updating Schemas
+
+Schemas are auto-generated from the Greenhouse API documentation. **Do not edit JSON schema files directly.** Instead:
+
+1. Run the schema update script:
+   ```bash
+   uv run scripts/update_catalog.py
+   ```
+
+2. If a schema needs special handling (e.g., API docs don't match reality), add preprocessing logic to `scripts/update_catalog.py` in the `_preprocess_schema()` function.
+
+The script:
+- Fetches the OpenAPI spec from Greenhouse's API documentation
+- Generates JSON schema files for each stream defined in `streams.toml`
+- Applies stream-specific fixes via `_preprocess_schema()` for known API inconsistencies
 
 #### Authentication
 
@@ -64,111 +101,24 @@ This tap uses the Greenhouse Harvest API V3 with OAuth2 client credentials authe
 **Configuration:**
 - Client credentials stored in `client_id` and `client_secret` config properties (both required)
 - Implements OAuth2 client credentials flow via `GreenhouseOAuthAuthenticator` class
+- Token endpoint: `https://auth.greenhouse.io/token`
 - Requires scopes to be configured in Greenhouse Dev Center
 
 **Required Scopes:**
 Each stream requires a corresponding scope in the format `harvest:{resource}:list`. For example:
 - `harvest:candidates:list` for the candidates stream
 - `harvest:applications:list` for the applications stream
-- See README.md for the complete list of scopes
 
 #### Handling Pagination
 
-The SDK provides built-in pagination classes. **Use these instead of overriding `get_next_page_token()` directly.**
-
-This tap uses a custom `GreenhouseLinkHeaderPaginator` that parses RFC 5988 Link headers.
-
-**Built-in Paginator Classes:**
-
-1. **SimpleHeaderPaginator**: For APIs using Link headers (RFC 5988)
-
-   ```python
-   from singer_sdk.pagination import SimpleHeaderPaginator
-
-   class MyStream(GreenhouseStream):
-       def get_new_paginator(self):
-           return SimpleHeaderPaginator()
-   ```
-
-1. **HeaderLinkPaginator**: For APIs with `Link: <url>; rel="next"` headers
-
-   ```python
-   from singer_sdk.pagination import HeaderLinkPaginator
-
-   class MyStream(GreenhouseStream):
-       def get_new_paginator(self):
-           return HeaderLinkPaginator()
-   ```
-
-1. **JSONPathPaginator**: For cursor/token in response body
-
-   ```python
-   from singer_sdk.pagination import JSONPathPaginator
-
-   class MyStream(GreenhouseStream):
-       def get_new_paginator(self):
-           return JSONPathPaginator("$.pagination.next_token")
-   ```
-
-1. **SinglePagePaginator**: For non-paginated endpoints
-
-   ```python
-   from singer_sdk.pagination import SinglePagePaginator
-
-   class MyStream(GreenhouseStream):
-       def get_new_paginator(self):
-           return SinglePagePaginator()
-   ```
-
-**Creating Custom Paginators:**
-
-For complex pagination logic, create a custom paginator class:
-
-```python
-from singer_sdk.pagination import BasePageNumberPaginator
-
-class MyCustomPaginator(BasePageNumberPaginator):
-    def has_more(self, response):
-        """Check if there are more pages."""
-        data = response.json()
-        return data.get("has_more", False)
-
-    def get_next_url(self, response):
-        """Get the next page URL."""
-        data = response.json()
-        if self.has_more(response):
-            return data.get("next_url")
-        return None
-
-# Use in stream
-class MyStream(GreenhouseStream):
-    def get_new_paginator(self):
-        return MyCustomPaginator(start_value=1)
-```
-
-**Common Pagination Patterns:**
-
-- **Offset-based**: Extend `BaseOffsetPaginator`
-- **Page-based**: Extend `BasePageNumberPaginator`
-- **Cursor-based**: Extend `BaseAPIPaginator` with custom logic
-- **HATEOAS/HAL**: Use `JSONPathPaginator` with appropriate JSON path
-
-Only override `get_next_page_token()` as a last resort for very simple cases.
+This tap uses the SDK's `HeaderLinkPaginator` which parses RFC 5988 Link headers from responses. No custom pagination logic is needed.
 
 #### State and Incremental Sync
 
-- Set `replication_key` to enable incremental sync (e.g., "updated_at")
-- Override `get_starting_timestamp()` to set initial sync point
-- State automatically managed by SDK
-- Access current state via `get_context_state()`
-
-#### Schema Evolution
-
-- Use flexible schemas during development
-- Add new properties without breaking changes
-- Consider making fields optional when unsure
-- Use `th.Property("field", th.StringType)` for basic types
-- Nest objects with `th.ObjectType(...)`
+- Set `replication_key` in `streams.toml` to enable incremental sync (e.g., `"updated_at"`)
+- Set `replication_key = ""` for full-table replication (no incremental sync)
+- State is automatically managed by the SDK
+- The tap passes replication key as a query parameter: `?updated_at=gte|{timestamp}`
 
 ### Testing
 
@@ -183,87 +133,46 @@ uv run pytest
 
 # Run specific test
 uv run pytest tests/test_core.py -k test_name
+
+# Run tap manually
+LOGLEVEL=warning uv run tap-greenhouse --config ENV > singer.jsonl
 ```
 
 ### Configuration
 
-Configuration properties are defined in the tap class:
-
-- Required vs optional properties
-- Secret properties (passwords, tokens)
-- Mark sensitive data with `secret=True` parameter
-- Defaults specified in config schema
-
-Example configuration schema:
+Configuration properties are defined in `tap_greenhouse/tap.py`:
 
 ```python
-from singer_sdk import typing as th
-
 config_jsonschema = th.PropertiesList(
-    th.Property("api_url", th.StringType, required=True),
-    th.Property("api_key", th.StringType, required=True, secret=True),
+    th.Property("client_id", th.StringType, required=True, secret=True),
+    th.Property("client_secret", th.StringType, required=True, secret=True),
     th.Property("start_date", th.DateTimeType),
-    th.Property("user_agent", th.StringType, default="tap-mysource"),
 ).to_dict()
 ```
 
-Example test with config:
+### streams.toml Format
 
-```bash
-tap-greenhouse --config config.json --discover
-tap-greenhouse --config config.json --catalog catalog.json
+The `streams.toml` file defines all streams:
+
+```toml
+[defaults]
+primary_keys = ["id"]           # Default primary key for all streams
+replication_key = "updated_at"  # Default replication key
+
+[[streams]]
+name = "applications"
+path = "/v3/applications"
+replication_key = "last_activity_at"  # Override default
+
+[[streams]]
+name = "demographic_questions"
+path = "/v3/demographic_questions"
+replication_key = ""  # No replication key (full table sync)
 ```
 
 ### Keeping meltano.yml and Tap Settings in Sync
 
-When this tap is used with Meltano, the settings defined in `meltano.yml` must stay in sync with the `config_jsonschema` in the tap class. Configuration drift between these two sources causes confusion and runtime errors.
-
-**When to sync:**
-
-- Adding new configuration properties to the tap
-- Removing or renaming existing properties
-- Changing property types, defaults, or descriptions
-- Marking properties as required or secret
-
-**How to sync:**
-
-1. Update `config_jsonschema` in `tap_greenhouse/tap.py`
-1. Update the corresponding `settings` block in `meltano.yml`
-1. Update `.env.example` with the new environment variable
-
-Example - adding a new `batch_size` setting:
-
-```python
-# tap_greenhouse/tap.py
-config_jsonschema = th.PropertiesList(
-    th.Property("api_url", th.StringType, required=True),
-    th.Property("api_key", th.StringType, required=True, secret=True),
-    th.Property("batch_size", th.IntegerType, default=100),  # New setting
-).to_dict()
-```
-
-```yaml
-# meltano.yml
-plugins:
-  extractors:
-    - name: tap-greenhouse
-      settings:
-        - name: api_url
-          kind: string
-        - name: api_key
-          kind: string
-          sensitive: true
-        - name: batch_size  # New setting
-          kind: integer
-          value: 100
-```
-
-```bash
-# .env.example
-TAP_GREENHOUSE_API_URL=https://api.example.com
-TAP_GREENHOUSE_API_KEY=your_api_key_here
-TAP_GREENHOUSE_BATCH_SIZE=100  # New setting
-```
+When this tap is used with Meltano, the settings defined in `meltano.yml` must stay in sync with the `config_jsonschema` in the tap class.
 
 **Setting kind mappings:**
 
@@ -279,22 +188,13 @@ TAP_GREENHOUSE_BATCH_SIZE=100  # New setting
 
 Any properties with `secret=True` should be marked with `sensitive: true` in `meltano.yml`.
 
-**Best practices:**
-
-- Always update all three files (`tap.py`, `meltano.yml`, `.env.example`) in the same commit
-- Use the same default values in all locations
-- Keep descriptions consistent between code docstrings and `meltano.yml` `description` fields
-
-> **Note:** This guidance is consistent with target and mapper templates in the Singer SDK. See the [SDK documentation](https://sdk.meltano.com) for canonical reference.
-
 ### Common Pitfalls
 
-1. **Rate Limiting**: Implement backoff using `RESTStream` built-in retry logic
-1. **Large Responses**: Use pagination, don't load entire dataset into memory
-1. **Schema Mismatches**: Validate data matches schema, handle null values
-1. **State Management**: Don't modify state directly, use SDK methods
-1. **Timezone Handling**: Use UTC, parse ISO 8601 datetime strings
-1. **Error Handling**: Let SDK handle retries, log warnings for data issues
+1. **Schema Mismatches**: If you see warnings like "Properties X were present in stream but not found in catalog schema", run `uv run scripts/update_catalog.py` to regenerate schemas. If the issue persists, add a fix to `_preprocess_schema()` in the script.
+2. **Missing Replication Key**: If a stream doesn't have `updated_at` in the API response, set `replication_key = ""` in streams.toml
+3. **Rate Limiting**: The SDK handles retries automatically
+4. **Timezone Handling**: Use UTC, the API returns ISO 8601 datetime strings
+5. **Don't Edit Schemas Directly**: Always use `scripts/update_catalog.py` to update schemas
 
 ### SDK Resources
 
@@ -306,29 +206,11 @@ Any properties with `secret=True` should be marked with `sensitive: true` in `me
 ### Best Practices
 
 1. **Logging**: Use `self.logger` for structured logging
-1. **Validation**: Validate API responses before emitting records
-1. **Documentation**: Update README with new streams and config options
-1. **Type Hints**: Add type hints to improve code clarity
-1. **Testing**: Write tests for new streams and edge cases
-1. **Performance**: Profile slow streams, optimize API calls
-1. **Error Messages**: Provide clear, actionable error messages
-
-## File Structure
-
-```
-tap-greenhouse/
-├── tap_greenhouse/
-│   ├── __init__.py
-│   ├── tap.py          # Main tap class
-│   ├── client.py       # API client
-│   └── streams.py      # Stream definitions
-├── tests/
-│   ├── __init__.py
-│   └── test_core.py
-├── meltano.yml         # Meltano configuration
-├── pyproject.toml      # Dependencies and metadata
-└── README.md           # User documentation
-```
+2. **Validation**: Validate API responses before emitting records
+3. **Documentation**: Update README with new streams and config options
+4. **Type Hints**: Add type hints to improve code clarity
+5. **Testing**: Write tests for new streams and edge cases
+6. **Error Messages**: Provide clear, actionable error messages
 
 ## Additional Resources
 
@@ -336,18 +218,18 @@ tap-greenhouse/
 - Singer SDK: https://sdk.meltano.com
 - Meltano: https://meltano.com
 - Singer Specification: https://hub.meltano.com/singer/spec
-- Greenhouse Harvest API: https://developers.greenhouse.io/harvest.html
+- Greenhouse Harvest API V3: https://developers.greenhouse.io/harvest.html
 
 ## Making Changes
 
 When implementing changes:
 
 1. Understand the existing code structure
-1. Follow Singer and SDK patterns
-1. Test thoroughly with real API credentials
-1. Update documentation and docstrings
-1. Ensure backward compatibility when possible
-1. Run linting and type checking
+2. Follow Singer and SDK patterns
+3. Test thoroughly with real API credentials
+4. Update documentation and docstrings
+5. Ensure backward compatibility when possible
+6. Run linting and type checking: `uv run ruff check`
 
 ## Questions?
 
