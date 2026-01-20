@@ -1,0 +1,60 @@
+send_anonymous_usage_stats: true
+project_id: "tap-greenhouse"
+default_environment: test
+requires_meltano: ">=4.0"
+environments:
+- name: test
+plugins:
+  extractors:
+  - name: "tap-greenhouse"
+    namespace: "tap_greenhouse"
+    pip_url: -e .
+    capabilities:
+    - state
+    - catalog
+    - discover
+    - about
+    - stream-maps
+    - structured-logging
+
+    settings:
+    - name: api_key
+      kind: password
+      label: API Key
+      description: Harvest API key for Basic Auth (V1). Use this OR client_key/client_secret.
+      sensitive: true
+
+    - name: client_key
+      kind: password
+      label: Client Key
+      description: OAuth2 client key for Greenhouse Harvest API (V3)
+      sensitive: true
+
+    - name: client_secret
+      kind: password
+      label: Client Secret
+      description: OAuth2 client secret for Greenhouse Harvest API (V3)
+      sensitive: true
+
+    - name: start_date
+      kind: date_iso8601
+      label: Start Date
+      description: The earliest record date to sync
+
+    - name: api_url
+      kind: string
+      label: API URL
+      description: The base URL for the Greenhouse Harvest API
+
+    settings_group_validation:
+    - - api_key
+    - - client_key
+      - client_secret
+
+    config:
+      api_url: https://harvest.greenhouse.io/v1
+
+  loaders:
+  - name: target-jsonl
+    variant: andyh1203
+    pip_url: target-jsonl
