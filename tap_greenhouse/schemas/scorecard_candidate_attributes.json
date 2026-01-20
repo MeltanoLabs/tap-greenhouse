@@ -1,0 +1,33 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "integer"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "scorecard_id": {
+      "type": "integer"
+    },
+    "candidate_attribute_rating": {
+      "type": "string"
+    },
+    "job_candidate_attribute_id": {
+      "type": "integer"
+    },
+    "note": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  },
+  "description": "Schema for the 'scorecard_candidate_attributes' stream, linked to the '/v3/scorecard_candidate_attributes' endpoint."
+}

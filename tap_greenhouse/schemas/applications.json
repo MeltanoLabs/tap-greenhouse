@@ -1,0 +1,196 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "integer"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "agency_note_id": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "candidate_id": {
+      "type": "integer"
+    },
+    "coordinator_id": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "job_id": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "job_post_id": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "recruiter_id": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "referrer_id": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "source_id": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "stage_id": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "rejected",
+        "hired",
+        "converted",
+        "in_process"
+      ]
+    },
+    "needs_decision": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "prospect": {
+      "type": "boolean"
+    },
+    "rejected_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "last_activity_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "location_address": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "answers": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": "object",
+        "properties": {
+          "question": {
+            "type": "string"
+          },
+          "answer": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      }
+    },
+    "prospective_job_ids": {
+      "type": "array",
+      "items": {
+        "type": "integer"
+      }
+    },
+    "custom_fields": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "name",
+          "type",
+          "value"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "value": {
+            "anyOf": [
+              {
+                "type": [
+                  "object",
+                  "null"
+                ]
+              },
+              {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              {
+                "type": [
+                  "number",
+                  "null"
+                ]
+              },
+              {
+                "type": [
+                  "integer",
+                  "null"
+                ]
+              },
+              {
+                "type": [
+                  "array",
+                  "null"
+                ]
+              },
+              {
+                "type": [
+                  "boolean",
+                  "null"
+                ]
+              }
+            ]
+          }
+        }
+      }
+    }
+  },
+  "description": "Schema for the 'applications' stream, linked to the '/v3/applications' endpoint."
+}

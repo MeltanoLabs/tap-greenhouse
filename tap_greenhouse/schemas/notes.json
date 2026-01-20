@@ -1,0 +1,123 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "integer"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "candidate_id": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "application_id": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "body": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "subject": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "NOTE",
+        "ACTIVITY",
+        "INTERVIEW",
+        "EMAIL",
+        "FOLLOW_UP",
+        "TAKE_HOME_TEST",
+        "LINKEDIN_NOTE",
+        "LINKEDIN_INMAIL",
+        "AVAILABILITY_REQUEST",
+        "MIGRATION_ERROR",
+        "TOUCHPOINT",
+        "FORM",
+        "FEEDBACK"
+      ]
+    },
+    "user_id": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "email_from": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "email_to": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "email_cc": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": "string"
+      }
+    },
+    "import_hash": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "body_with_tags": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "visibility": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "admin_only_visible",
+        "privately_visible",
+        "publicly_visible",
+        null
+      ]
+    },
+    "email_attachment_file_names": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": [
+          "string",
+          "null"
+        ]
+      }
+    }
+  },
+  "description": "Schema for the 'notes' stream, linked to the '/v3/notes' endpoint."
+}

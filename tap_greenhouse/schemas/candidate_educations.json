@@ -1,0 +1,80 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "integer"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "candidate_id": {
+      "type": "integer"
+    },
+    "school_name_custom_field_option_id": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "degree_custom_field_option_id": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "discipline_custom_field_option_id": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "start_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "end_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "latest": {
+      "type": "boolean"
+    },
+    "start_date_month": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "start_date_year": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "end_date_month": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "end_date_year": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    }
+  },
+  "description": "Schema for the 'candidate_educations' stream, linked to the '/v3/candidate_educations' endpoint."
+}

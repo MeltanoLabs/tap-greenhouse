@@ -1,0 +1,63 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "integer"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "job_id": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "token": {
+      "type": "string"
+    },
+    "source_id": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "related_post_id": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "related_post_type": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "referrer_id": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "job_board_id": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "job_post_id": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    }
+  },
+  "description": "Schema for the 'tracking_links' stream, linked to the '/v3/tracking_links' endpoint."
+}

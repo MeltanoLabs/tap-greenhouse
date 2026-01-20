@@ -1,0 +1,48 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "integer"
+    },
+    "created_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "updated_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "demographic_question_id": {
+      "type": "integer"
+    },
+    "sort_order": {
+      "type": "integer"
+    },
+    "active": {
+      "type": "boolean"
+    },
+    "free_form": {
+      "type": "boolean"
+    },
+    "name": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "decline_to_answer": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    }
+  },
+  "description": "Schema for the 'demographic_answer_options' stream, linked to the '/v3/demographic_answer_options' endpoint."
+}

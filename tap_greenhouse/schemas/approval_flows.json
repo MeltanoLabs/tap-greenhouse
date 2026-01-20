@@ -1,0 +1,59 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "integer"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "job_id": {
+      "type": "integer"
+    },
+    "offer_id": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "approval_type": {
+      "type": "string",
+      "enum": [
+        "open_job",
+        "offer_job",
+        "offer_candidate"
+      ]
+    },
+    "sequential": {
+      "type": "boolean"
+    },
+    "version": {
+      "type": "integer"
+    },
+    "requested_by_id": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "approval_status": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "pending",
+        "rejected",
+        "approved",
+        null
+      ]
+    }
+  },
+  "description": "Schema for the 'approval_flows' stream, linked to the '/v3/approval_flows' endpoint."
+}

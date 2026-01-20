@@ -1,0 +1,24 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "integer"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "candidate_tag_id": {
+      "type": "integer"
+    },
+    "candidate_id": {
+      "type": "integer"
+    }
+  },
+  "description": "Schema for the 'applied_candidate_tags' stream, linked to the '/v3/applied_candidate_tags' endpoint."
+}

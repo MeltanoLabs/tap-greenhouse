@@ -28,15 +28,11 @@ uv tool install git+https://github.com/ORG_NAME/tap-greenhouse.git@main
 
 ### Accepted Config Options
 
-<!--
-Developer TODO: Provide a list of config options accepted by the tap.
-
-This section can be created by copy-pasting the CLI output from:
-
-```
-tap-greenhouse --about --format=markdown
-```
--->
+| Setting | Required | Description |
+|---------|----------|-------------|
+| `client_id` | Yes | OAuth2 client ID for Greenhouse Harvest API V3 |
+| `client_secret` | Yes | OAuth2 client secret for Greenhouse Harvest API V3 |
+| `start_date` | No | The earliest record date to sync (ISO 8601 format) |
 
 A full list of supported settings and capabilities for this
 tap is available by running:
@@ -51,11 +47,43 @@ This Singer tap will automatically import any environment variables within the w
 `.env` if the `--config=ENV` is provided, such that config values will be considered if a matching
 environment variable is set either in the terminal context or in the `.env` file.
 
-### Source Authentication and Authorization
+```bash
+export TAP_GREENHOUSE_CLIENT_ID=your-client-id
+export TAP_GREENHOUSE_CLIENT_SECRET=your-client-secret
+```
 
-<!--
-Developer TODO: If your tap requires special access on the source system, or any special authentication requirements, provide those here.
--->
+### Authentication
+
+This tap uses the **Greenhouse Harvest API V3** with OAuth2 client credentials authentication.
+
+#### Setting up OAuth2 credentials
+
+1. Go to **Configure** → **Dev Center** → **API Credential Management** in Greenhouse
+2. Create a new **API credential** with type **Harvest API - OAuth 2.0**
+3. Copy the **Client Key** and **Client Secret**
+4. Configure the required scopes for the streams you want to sync (see below)
+
+#### Required Scopes
+
+Enable the following scopes in Greenhouse Dev Center based on which streams you need:
+
+| Stream | Required Scope |
+|--------|----------------|
+| applications | `harvest:applications:list` |
+| candidates | `harvest:candidates:list` |
+| jobs | `harvest:jobs:list` |
+| users | `harvest:users:list` |
+| departments | `harvest:departments:list` |
+| offices | `harvest:offices:list` |
+| offers | `harvest:offers:list` |
+| scheduled_interviews | `harvest:scheduled_interviews:list` |
+| job_stages | `harvest:job_stages:list` |
+| scorecards | `harvest:scorecards:list` |
+| sources | `harvest:sources:list` |
+| rejection_reasons | `harvest:rejection_reasons:list` |
+| job_posts | `harvest:job_posts:list` |
+| custom_fields | `harvest:custom_fields:list` |
+| activity_feed | `harvest:candidates:activity_feed:list` |
 
 ## Usage
 

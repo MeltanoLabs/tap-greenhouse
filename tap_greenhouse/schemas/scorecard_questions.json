@@ -1,0 +1,37 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "integer"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "interview_kit_id": {
+      "type": "integer"
+    },
+    "question": {
+      "type": "string",
+      "description": "Text of the scorecard question. Supports basic HTML formatting (`<p>`, `<ul>`, `<li>`, `<b>`, `<i>`, `<a>`). Render or sanitize as needed."
+    },
+    "sort_order": {
+      "type": "integer"
+    },
+    "active": {
+      "type": "boolean"
+    },
+    "answer_type": {
+      "type": "string"
+    },
+    "required": {
+      "type": "boolean"
+    }
+  },
+  "description": "Schema for the 'scorecard_questions' stream, linked to the '/v3/scorecard_questions' endpoint."
+}

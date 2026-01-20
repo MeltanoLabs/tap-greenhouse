@@ -1,0 +1,27 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "integer"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "prospect_pool_id": {
+      "type": "integer"
+    },
+    "name": {
+      "type": "string"
+    },
+    "sort_order": {
+      "type": "integer"
+    }
+  },
+  "description": "Schema for the 'prospect_pool_stages' stream, linked to the '/v3/prospect_pool_stages' endpoint."
+}

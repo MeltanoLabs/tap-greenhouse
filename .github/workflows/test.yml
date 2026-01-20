@@ -33,6 +33,7 @@ jobs:
     name: Integration Tests / Python ${{ matrix.python-version }}
     runs-on: ubuntu-latest
     strategy:
+      max-parallel: 1
       fail-fast: false
       matrix:
         python-version:
@@ -52,6 +53,9 @@ jobs:
       with:
         version: ">=0.8"
     - name: Run Tox
+      env:
+        TAP_GREENHOUSE_CLIENT_ID: ${{ secrets.TAP_GREENHOUSE_CLIENT_ID }}
+        TAP_GREENHOUSE_CLIENT_SECRET: ${{ secrets.TAP_GREENHOUSE_CLIENT_SECRET }}
       run: |
         uvx --with=tox-uv tox -e ${{ matrix.python-version }}
 

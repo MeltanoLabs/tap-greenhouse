@@ -1,0 +1,93 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "integer"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "interview_kit_id": {
+      "type": "integer"
+    },
+    "interviewer_id": {
+      "type": "integer"
+    },
+    "interviewed_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "notes": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "notes_with_tags": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "submitter_id": {
+      "type": "integer"
+    },
+    "candidate_rating": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "private_notes": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "private_notes_with_tags": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "complete"
+      ]
+    },
+    "public_notes": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "public_notes_with_tags": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "application_id": {
+      "type": "integer"
+    },
+    "submitted_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    }
+  },
+  "description": "Schema for the 'scorecards' stream, linked to the '/v3/scorecards' endpoint."
+}

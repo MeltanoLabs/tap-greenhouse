@@ -1,0 +1,30 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "integer"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "scorecard_question_id": {
+      "type": "integer"
+    },
+    "name": {
+      "type": "string"
+    },
+    "sort_order": {
+      "type": "integer"
+    },
+    "active": {
+      "type": "boolean"
+    }
+  },
+  "description": "Schema for the 'scorecard_question_options' stream, linked to the '/v3/scorecard_question_options' endpoint."
+}

@@ -1,0 +1,36 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "integer"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "job_id": {
+      "type": "integer"
+    },
+    "candidate_attribute_type_id": {
+      "type": "integer"
+    },
+    "active": {
+      "type": "boolean"
+    },
+    "sort_order": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "name": {
+      "type": "string"
+    }
+  },
+  "description": "Schema for the 'job_candidate_attributes' stream, linked to the '/v3/job_candidate_attributes' endpoint."
+}

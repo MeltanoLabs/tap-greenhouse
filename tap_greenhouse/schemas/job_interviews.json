@@ -1,0 +1,70 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "integer"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "job_interview_stage_id": {
+      "type": "integer"
+    },
+    "job_id": {
+      "type": "integer"
+    },
+    "sort_order": {
+      "type": "integer"
+    },
+    "scheduling_type": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "none",
+        "needs_scheduling",
+        "take_home_test",
+        "offer",
+        null
+      ]
+    },
+    "duration": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "summary": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "instructions": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "name": {
+      "type": "string"
+    },
+    "active": {
+      "type": "boolean"
+    },
+    "require_scorecard": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    }
+  },
+  "description": "Schema for the 'job_interviews' stream, linked to the '/v3/job_interviews' endpoint."
+}

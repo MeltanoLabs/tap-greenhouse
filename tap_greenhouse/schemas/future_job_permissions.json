@@ -1,0 +1,36 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "integer"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "department_id": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "user_id": {
+      "type": "integer"
+    },
+    "office_id": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "role_id": {
+      "type": "integer"
+    }
+  },
+  "description": "Schema for the 'future_job_permissions' stream, linked to the '/v3/future_job_permissions' endpoint."
+}

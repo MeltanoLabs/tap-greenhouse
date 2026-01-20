@@ -1,7 +1,12 @@
-#!/usr/bin/env python3
-"""Simple script to test Greenhouse API connection."""
+#!/usr/bin/env -S uv run
 
+# ruff: noqa: T201
+
+"""Simple script to test Greenhouse V3 API connection."""
+
+import http
 import os
+import sys
 from base64 import b64encode
 
 import requests
@@ -9,86 +14,65 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-CLIENT_KEY = os.environ.get("TAP_GREENHOUSE_CLIENT_KEY")
+CLIENT_ID = os.environ.get("TAP_GREENHOUSE_CLIENT_ID")
 CLIENT_SECRET = os.environ.get("TAP_GREENHOUSE_CLIENT_SECRET")
 
-print(f"Client Key: {CLIENT_KEY[:10]}..." if CLIENT_KEY else "Client Key: Not set")
+print(f"Client ID: {CLIENT_ID[:10]}..." if CLIENT_ID else "Client ID: Not set")
 print(f"Client Secret: {CLIENT_SECRET[:10]}..." if CLIENT_SECRET else "Client Secret: Not set")
 print()
 
-token_url = "https://auth.greenhouse.io/token"
-auth_string = b64encode(f"{CLIENT_KEY}:{CLIENT_SECRET}".encode()).decode()
+if not CLIENT_ID or not CLIENT_SECRET:
+    print("ERROR: Both TAP_GREENHOUSE_CLIENT_ID and TAP_GREENHOUSE_CLIENT_SECRET must be set")
+    sys.exit(1)
 
+token_url = "https://auth.greenhouse.io/token"  # noqa: S105
+auth_string = b64encode(f"{CLIENT_ID}:{CLIENT_SECRET}".encode()).decode()
 
-def try_token_request(description: str, data: dict) -> str | None:
-    """Try to get an OAuth token with the given parameters."""
-    print(f"\n{'=' * 60}")
-    print(f"Trying: {description}")
-    print(f"{'=' * 60}")
-    print(f"Data: {data}")
+print("Requesting OAuth token...")
+response = requests.post(
+    token_url,
+    headers={
+        "Authorization": f"Basic {auth_string}",
+        "Content-Type": "application/x-www-form-urlencoded",
+    },
+    data={"grant_type": "client_credentials"},
+    timeout=10,
+)
 
-    response = requests.post(
-        token_url,
-        headers={
-            "Authorization": f"Basic {auth_string}",
-            "Content-Type": "application/x-www-form-urlencoded",
-        },
-        data=data,
-    )
+print(f"Status: {response.status_code}")
 
-    print(f"Status: {response.status_code}")
-    print(f"Response: {response.text[:500]}")
+if response.status_code != http.HTTPStatus.OK:
+    print(f"Error: {response.text}")
+    print("\nIf you see 'Client application is not requesting any scopes', your OAuth credential")
+    print("needs scopes configured in Greenhouse Dev Center → API Credential Management → Edit credential")
+    sys.exit(1)
 
-    if response.status_code == 200:
-        return response.json().get("access_token")
-    return None
+access_token = response.json().get("access_token")
+print(f"Got token: {access_token[:30]}...")
 
-
-# Try various scope formats
-scope_variations = [
-    ("No scope parameter", {"grant_type": "client_credentials"}),
-    ("Empty scope", {"grant_type": "client_credentials", "scope": ""}),
-    ("harvest:* wildcard", {"grant_type": "client_credentials", "scope": "harvest:*"}),
-    ("Colon-separated format", {"grant_type": "client_credentials", "scope": "harvest:candidates:list"}),
-    ("Dot-separated format", {"grant_type": "client_credentials", "scope": "candidates.read"}),
-    ("Space-separated multiple", {"grant_type": "client_credentials", "scope": "harvest:candidates:list harvest:applications:list"}),
-]
-
-access_token = None
-for description, data in scope_variations:
-    token = try_token_request(description, data)
-    if token:
-        access_token = token
-        print(f"\n*** SUCCESS! Got token: {token[:30]}...")
-        break
-
-# If we got a token, try to use it
-if access_token:
-    print(f"\n{'=' * 60}")
-    print("Testing V3 API with Bearer token")
-    print(f"{'=' * 60}")
-
-    for endpoint in ["/v3/applications", "/v3/candidates", "/v3/jobs"]:
-        url = f"https://harvest.greenhouse.io{endpoint}"
-        response = requests.get(
-            url,
-            headers={"Authorization": f"Bearer {access_token}", "Accept": "application/json"},
-            params={"per_page": 1},
-        )
-        print(f"\n{endpoint}: {response.status_code}")
-        print(f"Response: {response.text[:200]}")
-
-# Also try V1 API with different auth approaches
+# Test V3 API endpoints
 print(f"\n{'=' * 60}")
-print("Testing V1 API with Basic Auth")
+print("Testing V3 API endpoints")
 print(f"{'=' * 60}")
 
-for name, key in [("client_key", CLIENT_KEY), ("client_secret", CLIENT_SECRET)]:
-    auth = b64encode(f"{key}:".encode()).decode()
+endpoints = [
+    "/v3/applications",
+    "/v3/candidates",
+    "/v3/jobs",
+    "/v3/users",
+    "/v3/departments",
+    "/v3/offices",
+]
+
+for endpoint in endpoints:
+    url = f"https://harvest.greenhouse.io{endpoint}"
     response = requests.get(
-        "https://harvest.greenhouse.io/v1/applications",
-        headers={"Authorization": f"Basic {auth}", "Accept": "application/json"},
+        url,
+        headers={"Authorization": f"Bearer {access_token}", "Accept": "application/json"},
         params={"per_page": 1},
+        timeout=10,
     )
-    print(f"\nUsing {name}: {response.status_code}")
-    print(f"Response: {response.text[:200]}")
+    status = "✓" if response.status_code == http.HTTPStatus.OK else "✗"
+    print(f"{status} {endpoint}: {response.status_code}")
+    if response.status_code != http.HTTPStatus.OK:
+        print(f"  Error: {response.text[:100]}")

@@ -1,0 +1,27 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "integer"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "value": {
+      "type": "string"
+    },
+    "active": {
+      "type": "boolean"
+    },
+    "greenhouse_job_board_id": {
+      "type": "integer"
+    }
+  },
+  "description": "Schema for the 'job_board_custom_locations' stream, linked to the '/v3/job_board_custom_locations' endpoint."
+}

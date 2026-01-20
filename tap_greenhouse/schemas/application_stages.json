@@ -1,0 +1,44 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "integer"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "application_id": {
+      "type": "integer"
+    },
+    "job_interview_stage_id": {
+      "type": "integer"
+    },
+    "entered_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "exited_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "days_in_stage": {
+      "type": "integer"
+    },
+    "current": {
+      "type": "boolean"
+    }
+  },
+  "description": "Schema for the 'application_stages' stream, linked to the '/v3/application_stages' endpoint."
+}

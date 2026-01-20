@@ -1,0 +1,71 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "integer"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "bulk_action_uuid": {
+      "type": "string"
+    },
+    "requested_by_user_id": {
+      "type": "integer"
+    },
+    "status": {
+      "type": "string"
+    },
+    "record_count": {
+      "type": "integer"
+    },
+    "success_count": {
+      "type": "integer"
+    },
+    "failure_count": {
+      "type": "integer"
+    },
+    "callback_url": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "callback_response": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "completed_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "expires_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "api_endpoint": {
+      "type": "string"
+    },
+    "requested_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    }
+  }
+}

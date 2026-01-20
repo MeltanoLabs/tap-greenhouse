@@ -1,0 +1,33 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "integer"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "pay_input_id": {
+      "type": "integer"
+    },
+    "currency_type": {
+      "type": "string"
+    },
+    "min_cents": {
+      "type": "integer"
+    },
+    "max_cents": {
+      "type": "integer"
+    },
+    "job_post_id": {
+      "type": "integer"
+    }
+  },
+  "description": "Schema for the 'pay_input_ranges' stream, linked to the '/v3/pay_input_ranges' endpoint."
+}

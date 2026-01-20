@@ -1,0 +1,24 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "integer"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "user_id": {
+      "type": "integer"
+    },
+    "job_id": {
+      "type": "integer"
+    }
+  },
+  "description": "Schema for the 'job_hiring_managers' stream, linked to the '/v3/job_hiring_managers' endpoint."
+}

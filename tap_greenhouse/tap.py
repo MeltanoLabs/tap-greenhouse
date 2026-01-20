@@ -7,12 +7,19 @@ import sys
 from singer_sdk import Tap
 from singer_sdk import typing as th
 
-from tap_greenhouse import streams
+from tap_greenhouse.client import GreenhouseStream
 
 if sys.version_info >= (3, 12):
     from typing import override
 else:
     from typing_extensions import override
+
+try:
+    import requests_cache
+
+    requests_cache.install_cache()
+except ImportError:
+    pass
 
 
 class TapGreenhouse(Tap):
@@ -22,64 +29,32 @@ class TapGreenhouse(Tap):
 
     config_jsonschema = th.PropertiesList(
         th.Property(
-            "api_key",
+            "client_id",
             th.StringType,
+            required=True,
             secret=True,
-            title="API Key",
-            description="Harvest API key for Basic Auth (V1). Use this OR client_key/client_secret.",
-        ),
-        th.Property(
-            "client_key",
-            th.StringType,
-            secret=True,
-            title="Client Key",
-            description="OAuth2 client key for Greenhouse Harvest API (V3)",
+            title="Client ID",
+            description="OAuth2 client key for Greenhouse Harvest API V3",
         ),
         th.Property(
             "client_secret",
             th.StringType,
+            required=True,
             secret=True,
             title="Client Secret",
-            description="OAuth2 client secret for Greenhouse Harvest API (V3)",
+            description="OAuth2 client secret for Greenhouse Harvest API V3",
         ),
         th.Property(
             "start_date",
             th.DateTimeType,
             description="The earliest record date to sync",
         ),
-        th.Property(
-            "api_url",
-            th.StringType,
-            title="API URL",
-            default="https://harvest.greenhouse.io/v1",
-            description="The base URL for the Greenhouse Harvest API",
-        ),
     ).to_dict()
 
     @override
-    def discover_streams(self) -> list[streams.GreenhouseStream]:
-        """Return a list of discovered streams.
-
-        Returns:
-            A list of discovered streams.
-        """
-        return [
-            streams.CandidatesStream(self),
-            streams.ApplicationsStream(self),
-            streams.JobsStream(self),
-            streams.UsersStream(self),
-            streams.DepartmentsStream(self),
-            streams.OfficesStream(self),
-            streams.OffersStream(self),
-            streams.ScheduledInterviewsStream(self),
-            streams.JobStagesStream(self),
-            streams.ScorecardsStream(self),
-            streams.SourcesStream(self),
-            streams.RejectionReasonsStream(self),
-            streams.JobPostsStream(self),
-            streams.CustomFieldsStream(self),
-            streams.ActivityFeedStream(self),
-        ]
+    def discover_streams(self) -> list[GreenhouseStream]:
+        """Return a list of discovered streams."""
+        return GreenhouseStream.from_streams_toml(tap=self)
 
 
 if __name__ == "__main__":

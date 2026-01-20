@@ -1,0 +1,269 @@
+[defaults]
+primary_keys = ["id"]
+replication_key = "updated_at"
+
+[[streams]]
+name = "application_stages"
+path = "/v3/application_stages"
+
+[[streams]]
+name = "applications"
+path = "/v3/applications"
+replication_key = "last_activity_at"
+
+[[streams]]
+name = "applied_candidate_tags"
+path = "/v3/applied_candidate_tags"
+
+[[streams]]
+name = "approval_flows"
+path = "/v3/approval_flows"
+
+[[streams]]
+name = "approver_groups"
+path = "/v3/approver_groups"
+
+[[streams]]
+name = "approvers"
+path = "/v3/approvers"
+
+[[streams]]
+name = "attachments"
+path = "/v3/attachments"
+
+# Getting 403s, scope may be missing
+# [[streams]]
+# name = "blocked_spam_sources"
+# path = "/v3/blocked_spam_sources"
+
+# Getting 403s, scope may be missing
+# [[streams]]
+# name = "bulk_requests"
+# path = "/v3/bulk_requests"
+
+[[streams]]
+name = "candidate_attribute_types"
+path = "/v3/candidate_attribute_types"
+
+[[streams]]
+name = "candidate_educations"
+path = "/v3/candidate_educations"
+
+[[streams]]
+name = "candidate_employments"
+path = "/v3/candidate_employments"
+
+[[streams]]
+name = "candidates"
+path = "/v3/candidates"
+replication_key = "last_activity_at"
+
+[[streams]]
+name = "candidate_tags"
+path = "/v3/candidate_tags"
+
+[[streams]]
+name = "close_reasons"
+path = "/v3/close_reasons"
+
+[[streams]]
+name = "custom_field_departments"
+path = "/v3/custom_field_departments"
+
+[[streams]]
+name = "custom_field_offices"
+path = "/v3/custom_field_offices"
+
+[[streams]]
+name = "custom_fields"
+path = "/v3/custom_fields"
+
+[[streams]]
+name = "default_interviewers"
+path = "/v3/default_interviewers"
+
+[[streams]]
+name = "demographic_answer_options"
+path = "/v3/demographic_answer_options"
+replication_key = ""  # no replication key
+
+[[streams]]
+name = "demographic_answers"
+path = "/v3/demographic_answers"
+
+[[streams]]
+name = "demographic_question_sets"
+path = "/v3/demographic_question_sets"
+
+[[streams]]
+name = "demographic_questions"
+path = "/v3/demographic_questions"
+replication_key = ""  # no replication key
+
+[[streams]]
+name = "departments"
+path = "/v3/departments"
+
+[[streams]]
+name = "eeoc"
+path = "/v3/eeoc"
+
+[[streams]]
+name = "focus_candidate_attributes"
+path = "/v3/focus_candidate_attributes"
+
+[[streams]]
+name = "future_job_permissions"
+path = "/v3/future_job_permissions"
+
+[[streams]]
+name = "interview_kits"
+path = "/v3/interview_kits"
+
+[[streams]]
+name = "interviewer_tags"
+path = "/v3/interviewer_tags"
+
+[[streams]]
+name = "interviewers"
+path = "/v3/interviewers"
+
+[[streams]]
+name = "interviews"
+path = "/v3/interviews"
+
+[[streams]]
+name = "job_board_custom_locations"
+path = "/v3/job_board_custom_locations"
+
+[[streams]]
+name = "job_candidate_attributes"
+path = "/v3/job_candidate_attributes"
+
+[[streams]]
+name = "job_hiring_managers"
+path = "/v3/job_hiring_managers"
+
+[[streams]]
+name = "job_interview_stages"
+path = "/v3/job_interview_stages"
+
+[[streams]]
+name = "job_interviews"
+path = "/v3/job_interviews"
+
+[[streams]]
+name = "job_notes"
+path = "/v3/job_notes"
+
+[[streams]]
+name = "job_owners"
+path = "/v3/job_owners"
+
+[[streams]]
+name = "job_post_locations"
+path = "/v3/job_post_locations"
+
+[[streams]]
+name = "job_posts"
+path = "/v3/job_posts"
+
+[[streams]]
+name = "jobs"
+path = "/v3/jobs"
+
+[[streams]]
+name = "notes"
+path = "/v3/notes"
+
+[[streams]]
+name = "offers"
+path = "/v3/offers"
+
+[[streams]]
+name = "offices"
+path = "/v3/offices"
+
+[[streams]]
+name = "openings"
+path = "/v3/openings"
+
+[[streams]]
+name = "pay_input_ranges"
+path = "/v3/pay_input_ranges"
+
+[[streams]]
+name = "prospect_details"
+path = "/v3/prospect_details"
+
+[[streams]]
+name = "prospect_pools"
+path = "/v3/prospect_pools"
+
+[[streams]]
+name = "prospect_pool_stages"
+path = "/v3/prospect_pool_stages"
+
+[[streams]]
+name = "referrers"
+path = "/v3/referrers"
+
+[[streams]]
+name = "rejection_details"
+path = "/v3/rejection_details"
+
+[[streams]]
+name = "rejection_reasons"
+path = "/v3/rejection_reasons"
+
+[[streams]]
+name = "scorecard_candidate_attributes"
+path = "/v3/scorecard_candidate_attributes"
+
+[[streams]]
+name = "scorecard_question_answer_options"
+path = "/v3/scorecard_question_answer_options"
+
+[[streams]]
+name = "scorecard_question_answers"
+path = "/v3/scorecard_question_answers"
+
+[[streams]]
+name = "scorecard_question_candidate_attributes"
+path = "/v3/scorecard_question_candidate_attributes"
+
+[[streams]]
+name = "scorecard_question_options"
+path = "/v3/scorecard_question_options"
+
+[[streams]]
+name = "scorecard_questions"
+path = "/v3/scorecard_questions"
+
+[[streams]]
+name = "scorecards"
+path = "/v3/scorecards"
+
+[[streams]]
+name = "sources"
+path = "/v3/sources"
+
+[[streams]]
+name = "tracking_links"
+path = "/v3/tracking_links"
+
+[[streams]]
+name = "user_emails"
+path = "/v3/user_emails"
+
+[[streams]]
+name = "user_job_permissions"
+path = "/v3/user_job_permissions"
+
+[[streams]]
+name = "user_roles"
+path = "/v3/user_roles"
+
+[[streams]]
+name = "users"
+path = "/v3/users"

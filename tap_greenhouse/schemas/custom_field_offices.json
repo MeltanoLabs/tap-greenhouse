@@ -1,0 +1,24 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "integer"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "custom_field_id": {
+      "type": "integer"
+    },
+    "office_id": {
+      "type": "integer"
+    }
+  },
+  "description": "Schema for the 'custom_field_offices' stream, linked to the '/v3/custom_field_offices' endpoint."
+}
