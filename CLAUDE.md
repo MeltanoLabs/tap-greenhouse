@@ -7,7 +7,7 @@ This document provides guidance for AI coding agents and developers working on t
 - **Project Type**: Singer Tap
 - **Source**: Greenhouse
 - **Stream Type**: REST
-- **Authentication**: Basic Auth
+- **Authentication**: Basic Auth (V1) or OAuth2 (V3)
 - **Framework**: Meltano Singer SDK
 
 ## Architecture
@@ -19,7 +19,8 @@ This tap follows the Singer specification and uses the Meltano Singer SDK to ext
 1. **Tap Class** (`tap_greenhouse/tap.py`): Main entry point, defines streams and configuration
 1. **Client** (`tap_greenhouse/client.py`): Handles API communication and authentication
 1. **Streams** (`tap_greenhouse/streams.py`): Define data streams and their schemas
-   ## Development Guidelines for AI Agents
+
+## Development Guidelines for AI Agents
 
 ### Understanding Singer Concepts
 
@@ -45,24 +46,37 @@ Example:
 ```python
 class MyNewStream(GreenhouseStream):
     name = "my_new_stream"
-    path = "/api/v1/my_resource"
+    path = "/my_resource"
     primary_keys = ["id"]
     replication_key = "updated_at"
 
-    schema = PropertiesList(
-        Property("id", StringType, required=True),
-        Property("name", StringType),
-        Property("updated_at", DateTimeType),
+    schema = th.PropertiesList(
+        th.Property("id", th.IntegerType, required=True),
+        th.Property("name", th.StringType),
+        th.Property("updated_at", th.DateTimeType),
     ).to_dict()
 ```
 
 #### Modifying Authentication
 
-- Username/password in config
-- Automatically encoded to base64
-  #### Handling Pagination
+This tap supports two authentication methods:
+
+**V1 Basic Auth:**
+- API key stored in `api_key` config property
+- Passed via Basic Auth header with API key as username, blank password
+- Use `GreenhouseBasicAuthenticator` class
+
+**V3 OAuth2:**
+- Client credentials stored in `client_key` and `client_secret` config properties
+- Implements OAuth2 client credentials flow
+- Use `GreenhouseOAuthAuthenticator` class
+- Requires scopes to be configured in Greenhouse Dev Center
+
+#### Handling Pagination
 
 The SDK provides built-in pagination classes. **Use these instead of overriding `get_next_page_token()` directly.**
+
+This tap uses a custom `GreenhouseLinkHeaderPaginator` that parses RFC 5988 Link headers.
 
 **Built-in Paginator Classes:**
 
@@ -200,6 +214,79 @@ tap-greenhouse --config config.json --discover
 tap-greenhouse --config config.json --catalog catalog.json
 ```
 
+### Keeping meltano.yml and Tap Settings in Sync
+
+When this tap is used with Meltano, the settings defined in `meltano.yml` must stay in sync with the `config_jsonschema` in the tap class. Configuration drift between these two sources causes confusion and runtime errors.
+
+**When to sync:**
+
+- Adding new configuration properties to the tap
+- Removing or renaming existing properties
+- Changing property types, defaults, or descriptions
+- Marking properties as required or secret
+
+**How to sync:**
+
+1. Update `config_jsonschema` in `tap_greenhouse/tap.py`
+1. Update the corresponding `settings` block in `meltano.yml`
+1. Update `.env.example` with the new environment variable
+
+Example - adding a new `batch_size` setting:
+
+```python
+# tap_greenhouse/tap.py
+config_jsonschema = th.PropertiesList(
+    th.Property("api_url", th.StringType, required=True),
+    th.Property("api_key", th.StringType, required=True, secret=True),
+    th.Property("batch_size", th.IntegerType, default=100),  # New setting
+).to_dict()
+```
+
+```yaml
+# meltano.yml
+plugins:
+  extractors:
+    - name: tap-greenhouse
+      settings:
+        - name: api_url
+          kind: string
+        - name: api_key
+          kind: string
+          sensitive: true
+        - name: batch_size  # New setting
+          kind: integer
+          value: 100
+```
+
+```bash
+# .env.example
+TAP_GREENHOUSE_API_URL=https://api.example.com
+TAP_GREENHOUSE_API_KEY=your_api_key_here
+TAP_GREENHOUSE_BATCH_SIZE=100  # New setting
+```
+
+**Setting kind mappings:**
+
+| Python Type | Meltano Kind |
+|-------------|--------------|
+| `StringType` | `string` |
+| `IntegerType` | `integer` |
+| `BooleanType` | `boolean` |
+| `NumberType` | `number` |
+| `DateTimeType` | `date_iso8601` |
+| `ArrayType` | `array` |
+| `ObjectType` | `object` |
+
+Any properties with `secret=True` should be marked with `sensitive: true` in `meltano.yml`.
+
+**Best practices:**
+
+- Always update all three files (`tap.py`, `meltano.yml`, `.env.example`) in the same commit
+- Use the same default values in all locations
+- Keep descriptions consistent between code docstrings and `meltano.yml` `description` fields
+
+> **Note:** This guidance is consistent with target and mapper templates in the Singer SDK. See the [SDK documentation](https://sdk.meltano.com) for canonical reference.
+
 ### Common Pitfalls
 
 1. **Rate Limiting**: Implement backoff using `RESTStream` built-in retry logic
@@ -238,9 +325,9 @@ tap-greenhouse/
 ├── tests/
 │   ├── __init__.py
 │   └── test_core.py
-├── config.json         # Example configuration
+├── meltano.yml         # Meltano configuration
 ├── pyproject.toml      # Dependencies and metadata
-└── README.md          # User documentation
+└── README.md           # User documentation
 ```
 
 ## Additional Resources
@@ -249,6 +336,7 @@ tap-greenhouse/
 - Singer SDK: https://sdk.meltano.com
 - Meltano: https://meltano.com
 - Singer Specification: https://hub.meltano.com/singer/spec
+- Greenhouse Harvest API: https://developers.greenhouse.io/harvest.html
 
 ## Making Changes
 
