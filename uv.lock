@@ -1614,7 +1614,7 @@ typing = [
 [package.metadata]
 requires-dist = [
     { name = "requests", specifier = "~=2.32.3" },
-    { name = "s3fs", marker = "extra == 's3'", specifier = "~=2026.1.0" },
+    { name = "s3fs", marker = "extra == 's3'", specifier = ">=2026.1.0" },
     { name = "singer-sdk", specifier = "~=0.53.5" },
     { name = "tomli", marker = "python_full_version < '3.11'", specifier = ">=2.4.0" },
     { name = "typing-extensions", marker = "python_full_version < '3.13'", specifier = ">=4.5.0" },
