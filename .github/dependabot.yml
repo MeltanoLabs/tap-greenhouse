@@ -6,6 +6,7 @@
 version: 2
 updates:
   - package-ecosystem: uv
+    open-pull-requests-limit: 1
     directory: "/"
     schedule:
       interval: weekly
@@ -23,6 +24,7 @@ updates:
     cooldown:
       default-days: 7
   - package-ecosystem: github-actions
+    open-pull-requests-limit: 1
     directory: "/"
     schedule:
       interval: weekly
