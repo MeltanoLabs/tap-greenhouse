@@ -43,6 +43,7 @@ dev = [
     { include-group = "typing" },
     "requests>=2.32.5",
     "requests-cache>=1.2.1",
+    "toolz>=1.1.0",
     "urllib3>=2.6.3",
 ]
 test = [

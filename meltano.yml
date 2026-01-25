@@ -6,8 +6,8 @@ environments:
 - name: test
 plugins:
   extractors:
-  - name: "tap-greenhouse"
-    namespace: "tap_greenhouse"
+  - name: tap-greenhouse
+    namespace: tap_greenhouse
     pip_url: -e .
     capabilities:
     - state

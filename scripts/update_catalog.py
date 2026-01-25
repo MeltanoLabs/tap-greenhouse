@@ -10,6 +10,7 @@ import sys
 from pathlib import Path
 
 import urllib3
+from toolz import assoc_in, get_in
 
 if sys.version_info >= (3, 11):
     import tomllib
@@ -28,62 +29,78 @@ logger.setLevel(logging.INFO)
 logger.addHandler(logging.StreamHandler())
 
 
-def _preprocess_schema(stream_name: str, schema: dict) -> dict:  # noqa: C901, PLR0911
+def _make_nullable(schema: dict, path: list[str], expected_type: str) -> dict:
+    """Make the given path nullable."""
+    if get_in(path, schema) == expected_type:
+        return assoc_in(schema, path, [expected_type, "null"])
+    return schema
+
+
+def _preprocess_schema(stream_name: str, schema: dict) -> dict:  # noqa: C901, PLR0911, PLR0912
     """Preprocess the schema for the given stream."""
     if stream_name == "applications":
-        schema["properties"]["answers"]["items"]["properties"]["answer"]["type"] = ["string", "null"]
-        return schema
+        return _make_nullable(schema, ["properties", "answers", "items", "properties", "answer", "type"], "string")
 
     if stream_name == "candidates":
-        return schema["oneOf"][0]
+        return get_in(["oneOf", 0], schema)
 
     if stream_name == "demographic_answer_options":
-        schema["properties"]["created_at"]["type"] = ["string", "null"]
-        schema["properties"]["updated_at"]["type"] = ["string", "null"]
-        return schema
+        schema = _make_nullable(schema, ["properties", "created_at", "type"], "string")
+        schema = _make_nullable(schema, ["properties", "updated_at", "type"], "string")
+        return schema  # noqa: RET504
 
     if stream_name == "demographic_questions":
-        schema["properties"]["created_at"]["type"] = ["string", "null"]
-        schema["properties"]["updated_at"]["type"] = ["string", "null"]
-        return schema
+        schema = _make_nullable(schema, ["properties", "created_at", "type"], "string")
+        schema = _make_nullable(schema, ["properties", "updated_at", "type"], "string")
+        return schema  # noqa: RET504
 
     if stream_name == "eeoc":
-        schema["properties"]["gender"]["type"] = ["object", "null"]
-        schema["properties"]["race"]["type"] = ["object", "null"]
-        schema["properties"]["veteran_status"]["type"] = ["object", "null"]
-        schema["properties"]["disability_status"]["type"] = ["object", "null"]
-        return schema
+        schema = _make_nullable(schema, ["properties", "gender", "type"], "object")
+        schema = _make_nullable(schema, ["properties", "race", "type"], "object")
+        schema = _make_nullable(schema, ["properties", "veteran_status", "type"], "object")
+        schema = _make_nullable(schema, ["properties", "disability_status", "type"], "object")
+        return schema  # noqa: RET504
 
     if stream_name == "interviewers":
         del schema["properties"]["response_status"]["enum"]
-        return schema
+        if get_in(["properties", "response_status", "enum"], schema):
+            del schema["properties"]["response_status"]["enum"]
+            return schema
 
     if stream_name == "job_candidate_attributes":
-        schema["properties"]["sort_order"]["type"] = ["integer", "null"]
-        return schema
+        return _make_nullable(schema, ["properties", "sort_order", "type"], "integer")
 
     if stream_name == "jobs":
-        schema["properties"]["custom_fields"]["additionalProperties"]["additionalProperties"] = True
+        path = ["properties", "custom_fields", "additionalProperties", "additionalProperties"]
+        default_props = get_in(path, schema, default=False)
+        if not default_props:
+            schema = assoc_in(schema, path, value=True)
         return schema
 
     if stream_name == "notes":
-        schema["properties"]["email_attachment_file_names"] = {
-            "type": ["array", "null"],
-            "items": {"type": ["string", "null"]},
-        }
+        if get_in(["properties", "email_attachment_file_names", "type"], schema) == ["string", "null"]:
+            schema = assoc_in(
+                schema,
+                ["properties", "email_attachment_file_names"],
+                {
+                    "type": ["array", "null"],
+                    "items": {"type": ["string", "null"]},
+                },
+            )
         return schema
 
     if stream_name == "offers":
-        schema["properties"]["custom_fields"]["additionalProperties"]["additionalProperties"] = True
+        path = ["properties", "custom_fields", "additionalProperties", "additionalProperties"]
+        default_props = get_in(path, schema, default=False)
+        if not default_props:
+            schema = assoc_in(schema, path, value=True)
         return schema
 
     if stream_name == "scorecards":
-        schema["properties"]["candidate_rating"]["type"] = ["string", "null"]
-        return schema
+        return _make_nullable(schema, ["properties", "candidate_rating", "type"], "string")
 
     if stream_name == "users":
-        schema["properties"]["emails"]["type"] = ["array", "null"]
-        return schema
+        return _make_nullable(schema, ["properties", "emails", "type"], "array")
 
     return schema
 
