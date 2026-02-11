@@ -75,6 +75,10 @@ name = "custom_field_offices"
 path = "/v3/custom_field_offices"
 
 [[streams]]
+name = "custom_field_options"
+path = "/v3/custom_field_options"
+
+[[streams]]
 name = "custom_fields"
 path = "/v3/custom_fields"
 

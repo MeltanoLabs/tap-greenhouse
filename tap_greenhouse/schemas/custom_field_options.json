@@ -1,0 +1,36 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "integer"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "custom_field_id": {
+      "type": "integer"
+    },
+    "name": {
+      "type": "string"
+    },
+    "external_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "sort_order": {
+      "type": "integer"
+    },
+    "active": {
+      "type": "boolean"
+    }
+  },
+  "description": "Schema for the 'custom_field_options' stream, linked to the '/v3/custom_field_options' endpoint."
+}
