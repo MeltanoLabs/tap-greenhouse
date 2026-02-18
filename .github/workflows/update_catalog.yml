@@ -10,8 +10,8 @@ env:
   FORCE_COLOR: "1"
 
 jobs:
-  scrape:
-    name: Scrape ServiceTitan OpenAPI Specs
+  update-catalog:
+    name: Update catalog from Greenhouse OpenAPI Spec
     runs-on: ubuntu-latest
     permissions:
       contents: write  # General permission to create and update the repo contents
