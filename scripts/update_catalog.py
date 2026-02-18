@@ -106,7 +106,7 @@ def _preprocess_schema(stream_name: str, schema: dict) -> dict:  # noqa: C901, P
 
 
 def main() -> None:
-    """Update the OpenAPI schema from the Polar API."""
+    """Update the OpenAPI schema from the Greenhouse API."""
     logger.info("Updating OpenAPI schema from %s", API_DOCS_URL)
     schemas_path = Path("tap_greenhouse/schemas")
     with importlib.resources.files("tap_greenhouse").joinpath("streams.toml").open() as f_paths:
