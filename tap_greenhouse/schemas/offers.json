@@ -59,7 +59,15 @@
         "string",
         "null"
       ],
-      "format": "date-time"
+      "format": "date-time",
+      "deprecated": true
+    },
+    "resolved_on": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date"
     },
     "custom_fields": {
       "type": [
