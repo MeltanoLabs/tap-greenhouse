@@ -1,7 +1,7 @@
 send_anonymous_usage_stats: true
-project_id: "tap-greenhouse"
+project_id: tap-greenhouse
 default_environment: test
-requires_meltano: ">=4.0"
+requires_meltano: '>=4.0'
 environments:
 - name: test
 plugins:
@@ -17,6 +17,10 @@ plugins:
     - stream-maps
     - structured-logging
 
+    settings_group_validation:
+    - - client_id
+      - client_secret
+
     settings:
     - name: client_id
       kind: string
@@ -25,7 +29,7 @@ plugins:
       sensitive: true
 
     - name: client_secret
-      kind: password
+      kind: string
       label: Client Secret
       description: OAuth2 client secret for Greenhouse Harvest API V3
       sensitive: true
@@ -35,13 +39,11 @@ plugins:
       label: Start Date
       description: The earliest record date to sync
 
-    settings_group_validation:
-    - - client_id
-      - client_secret
-
     config:
       start_date: 1 week ago
 
+    select:
+    - custom_field_options.*
   loaders:
   - name: target-jsonl
     variant: andyh1203
