@@ -6,6 +6,7 @@ import http
 import importlib.resources
 import json
 import logging
+import re
 import sys
 from pathlib import Path
 
@@ -17,12 +18,9 @@ if sys.version_info >= (3, 11):
 else:
     import tomli as tomllib
 
-SLUG = "post_auth-token"  # Any slug endpoint seems to work
-API_DOCS_URL = f"https://harvestdocs.greenhouse.io/greenhouse-harvest/api-next/v2/branches/3.0/reference/{SLUG}"
-PARAMETERS = {
-    "dereference": "true",
-    "reduce": "false",
-}
+# The Greenhouse API docs embed the full OpenAPI spec in the HTML of any reference page.
+# The spec lives in a <script> tag as JSON, under document.api.schema.
+API_DOCS_URL = "https://harvestdocs.greenhouse.io/reference/get_v3-applications"
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
@@ -112,13 +110,23 @@ def main() -> None:
     with importlib.resources.files("tap_greenhouse").joinpath("streams.toml").open() as f_paths:
         paths: dict[str, str] = tomllib.loads(f_paths.read())
 
-    response = urllib3.request("GET", API_DOCS_URL, fields=PARAMETERS)
+    response = urllib3.request("GET", API_DOCS_URL)
     if response.status != http.HTTPStatus.OK:
         logger.error("Failed to fetch OpenAPI spec: %s", response.reason)
         sys.exit(1)
 
-    data = response.json()
-    openapi = data["data"]["api"]["schema"]
+    html = response.data.decode("utf-8")
+    scripts = re.findall(r"<script[^>]*>({.*?})</script>", html, re.DOTALL)
+    data = next(
+        (json.loads(s) for s in scripts if '"document"' in s and '"paths"' in s),
+        None,
+    )
+    if data is None:
+        logger.error("Could not find embedded OpenAPI spec in page HTML")
+        sys.exit(1)
+
+    openapi = data["document"]["api"]["schema"]
+
     stream_paths_to_names = {stream_attrs["path"]: stream_attrs["name"] for stream_attrs in paths["streams"]}
 
     for path, operation in openapi["paths"].items():
