@@ -35,10 +35,16 @@
       ]
     },
     "department_id": {
-      "type": "integer"
+      "type": [
+        "integer",
+        "null"
+      ]
     },
     "office_id": {
-      "type": "integer"
+      "type": [
+        "integer",
+        "null"
+      ]
     }
   },
   "description": "Schema for the 'prospect_details' stream, linked to the '/v3/prospect_details' endpoint."

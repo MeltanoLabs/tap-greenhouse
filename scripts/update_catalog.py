@@ -97,6 +97,10 @@ def _preprocess_schema(stream_name: str, schema: dict) -> dict:  # noqa: C901, P
     if stream_name == "scorecards":
         return _make_nullable(schema, ["properties", "candidate_rating", "type"], "string")
 
+    if stream_name == "prospect_details":
+        schema = _make_nullable(schema, ["properties", "department_id", "type"], "integer")
+        return _make_nullable(schema, ["properties", "office_id", "type"], "integer")
+
     if stream_name == "users":
         return _make_nullable(schema, ["properties", "emails", "type"], "array")
 
