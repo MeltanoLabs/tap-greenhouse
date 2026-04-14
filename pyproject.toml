@@ -47,7 +47,7 @@ dev = [
     "urllib3>=2.6.3",
 ]
 test = [
-    "pytest>=9",
+    "pytest>=9.0.3",
     "pytest-github-actions-annotate-failures>=0.3",
     "singer-sdk[testing]",
 ]
