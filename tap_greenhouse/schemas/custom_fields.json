@@ -55,7 +55,11 @@
         "header",
         "statement",
         "attachment",
-        "rich_text"
+        "rich_text",
+        "address_hris",
+        "date_of_birth_hris",
+        "phone_number_hris",
+        "national_tax_identity_hris"
       ]
     },
     "private": {
