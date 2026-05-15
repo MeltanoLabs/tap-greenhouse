@@ -93,35 +93,6 @@
     "job_board_id": {
       "type": "integer"
     },
-    "location": {
-      "type": [
-        "object",
-        "null"
-      ],
-      "required": [
-        "type",
-        "name"
-      ],
-      "properties": {
-        "type": {
-          "type": "string",
-          "enum": [
-            "free_text",
-            "office",
-            "custom_list"
-          ]
-        },
-        "name": {
-          "type": "string"
-        },
-        "id": {
-          "type": [
-            "integer",
-            "null"
-          ]
-        }
-      }
-    },
     "questions": {
       "type": "array",
       "items": {
