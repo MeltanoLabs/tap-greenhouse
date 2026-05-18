@@ -112,7 +112,7 @@ def main() -> None:
     logger.info("Updating OpenAPI schema from %s", API_DOCS_URL)
     schemas_path = Path("tap_greenhouse/schemas")
     with importlib.resources.files("tap_greenhouse").joinpath("streams.toml").open() as f_paths:
-        paths: dict[str, str] = tomllib.loads(f_paths.read())
+        paths: dict[str, dict] = tomllib.loads(f_paths.read())
 
     response = urllib3.request("GET", API_DOCS_URL)
     if response.status != http.HTTPStatus.OK:
