@@ -23,7 +23,7 @@ license-files = [ "LICENSE" ]
 requires-python = ">=3.10"
 dependencies = [
     "singer-sdk~=0.53.7",
-    "requests~=2.33.0",
+    "requests~=2.34.0",
     "tomli>=2.4.0 ; python_full_version < '3.11'",
     "typing-extensions>=4.5.0; python_version < '3.13'",
 ]
@@ -56,7 +56,6 @@ typing = [
     "requests-cache",
     "tomli",
     "ty>=0.0.1-alpha.16",
-    "types-requests",
 ]
 
 [tool.hatch.version]
