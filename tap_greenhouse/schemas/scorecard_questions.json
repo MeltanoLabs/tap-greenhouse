@@ -27,7 +27,14 @@
       "type": "boolean"
     },
     "answer_type": {
-      "type": "string"
+      "type": "string",
+      "enum": [
+        "text",
+        "yes_no",
+        "single_select",
+        "multi_select",
+        "instruction"
+      ]
     },
     "required": {
       "type": "boolean"
