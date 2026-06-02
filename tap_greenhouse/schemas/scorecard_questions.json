@@ -14,17 +14,20 @@
       "format": "date-time"
     },
     "interview_kit_id": {
-      "type": "integer"
+      "type": "integer",
+      "description": "Id of the interview kit this question belongs to. Each `interview_kit` carries its own ordered set of scorecard questions, so the same prompt configured on two kits has two distinct `scorecard_question` rows."
     },
     "question": {
       "type": "string",
-      "description": "Text of the scorecard question. Supports basic HTML formatting (`<p>`, `<ul>`, `<li>`, `<b>`, `<i>`, `<a>`). Render or sanitize as needed."
+      "description": "Text of the scorecard question \u2014 or, when `answer_type` is `instruction`, the body of the display-only instruction shown to interviewers. Supports basic HTML formatting (`<p>`, `<ul>`, `<li>`, `<b>`, `<i>`, `<a>`). Render or sanitize as needed."
     },
     "sort_order": {
-      "type": "integer"
+      "type": "integer",
+      "description": "Position of this question within its interview kit, ascending. Lower values render first; aliased from the underlying `priority` column. Questions and `instruction` rows share a single ordering."
     },
     "active": {
-      "type": "boolean"
+      "type": "boolean",
+      "description": "`true` when the question is in use; `false` after it has been removed from the kit. Inactive questions are returned by default \u2014 pass `active=true` to filter to live questions only. Past `scorecard_question_answers` still reference inactive rows so historical scorecards stay readable."
     },
     "answer_type": {
       "type": "string",
@@ -34,10 +37,12 @@
         "single_select",
         "multi_select",
         "instruction"
-      ]
+      ],
+      "description": "Shape of the answer the interviewer fills in. `text` is free-form rich text; `yes_no` is a binary choice; `single_select` and `multi_select` pick from the question's `scorecard_question_options`; `instruction` is a display-only guidance row with no answer field and no `required` semantics \u2014 instructions exist to script interviewers and do not produce a `scorecard_question_answer`. Immutable after the question is created."
     },
     "required": {
-      "type": "boolean"
+      "type": "boolean",
+      "description": "If `true`, an interviewer must answer this question before submitting the scorecard. Ignored when `answer_type` is `instruction`."
     }
   },
   "description": "Schema for the 'scorecard_questions' stream, linked to the '/v3/scorecard_questions' endpoint."

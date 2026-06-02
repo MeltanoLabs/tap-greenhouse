@@ -14,16 +14,19 @@
       "format": "date-time"
     },
     "job_id": {
-      "type": "integer"
+      "type": "integer",
+      "description": "Id of the job this note is attached to. Job notes are always anchored to a single job and are not shared across jobs."
     },
     "user_id": {
-      "type": "integer"
+      "type": "integer",
+      "description": "Id of the Greenhouse user who authored the note."
     },
     "body": {
       "type": [
         "string",
         "null"
-      ]
+      ],
+      "description": "Free-text body of the note. Newline characters are stored verbatim and rendered as line breaks in the Greenhouse UI."
     },
     "visibility": {
       "type": [
@@ -34,7 +37,8 @@
         "admin_only_visible",
         "privately_visible",
         null
-      ]
+      ],
+      "description": "Who can see this note. `admin_only_visible` is restricted to users with Job Admin or higher access on the job; `privately_visible` is further restricted to users with the \"view and create private job notes\" permission on the job."
     }
   },
   "description": "Schema for the 'job_notes' stream, linked to the '/v3/job_notes' endpoint."

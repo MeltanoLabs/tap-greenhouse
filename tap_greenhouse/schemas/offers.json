@@ -14,22 +14,27 @@
       "format": "date-time"
     },
     "version": {
-      "type": "integer"
+      "type": "integer",
+      "description": "Revision number of this offer within its application. Greenhouse creates a new offer row (incrementing `version`) whenever a tracked field on an existing offer changes \u2014 typically `starts_on`, `opening_id`, or a custom field configured to trigger a new version. Pair with `current_only=true` to filter the list endpoint down to the latest version per application."
     },
     "application_id": {
-      "type": "integer"
+      "type": "integer",
+      "description": "Id of the application this offer is extended on. Every offer belongs to exactly one application; the offer is voided if the application is rejected or deleted."
     },
     "job_id": {
-      "type": "integer"
+      "type": "integer",
+      "description": "Id of the job this offer's application is on."
     },
     "candidate_id": {
-      "type": "integer"
+      "type": "integer",
+      "description": "Id of the candidate (person) receiving this offer. Resolved through the offer's application."
     },
     "opening_id": {
       "type": [
         "integer",
         "null"
-      ]
+      ],
+      "description": "Id of the specific opening this offer is being extended for. `null` when the offer has not yet been linked to an opening."
     },
     "status": {
       "type": "string",
@@ -38,28 +43,32 @@
         "Accepted",
         "Rejected",
         "Deprecated"
-      ]
+      ],
+      "description": "Lifecycle status of the offer. `Created` for offers still being drafted or pending approval, `Accepted` once the candidate accepts, `Rejected` if declined or withdrawn, and `Deprecated` for superseded prior versions (a new offer version replaces an earlier one with this status)."
     },
     "starts_on": {
       "type": [
         "string",
         "null"
       ],
-      "format": "date"
+      "format": "date",
+      "description": "Candidate's proposed start date, in ISO 8601 (YYYY-MM-DD). `null` when no start date has been set on the offer."
     },
     "sent_on": {
       "type": [
         "string",
         "null"
       ],
-      "format": "date"
+      "format": "date",
+      "description": "Date the offer was sent to the candidate, in ISO 8601 (YYYY-MM-DD). `null` until the offer has been sent."
     },
     "resolved_at": {
       "type": [
         "string",
         "null"
       ],
-      "format": "date-time"
+      "format": "date-time",
+      "description": "Timestamp the offer was resolved (`Accepted` or `Rejected`), in ISO 8601. Date updates submitted through `PATCH /v3/offers/{id}` are normalized to noon UTC on the supplied date. `null` while the offer is still `Created` or has been superseded as `Deprecated` without a resolution."
     },
     "custom_fields": {
       "type": [

@@ -14,31 +14,36 @@
       "format": "date-time"
     },
     "interview_id": {
-      "type": "integer"
+      "type": "integer",
+      "description": "Id of the scheduled interview this row belongs to. References a `/v3/interviews` row; the same interview appears once per panel member."
     },
     "user_id": {
       "type": [
         "integer",
         "null"
-      ]
+      ],
+      "description": "Id of the Greenhouse user on the panel. References a `/v3/users` row. `null` when the panel member is an external attendee on the underlying calendar event whose email does not match a Greenhouse user \u2014 in that case the address surfaces in `email`."
     },
     "scorecard_id": {
       "type": [
         "integer",
         "null"
-      ]
+      ],
+      "description": "Id of the scorecard assigned to this panel member for this interview. Scorecards are one-to-one with interviewer rows: when an interview is scheduled, Greenhouse creates a placeholder scorecard per assigned interviewer that the same user later fills out. `null` for panel members who do not get a scorecard (typically the calendar organizer or external attendees without a Greenhouse user)."
     },
     "email": {
       "type": [
         "string",
         "null"
-      ]
+      ],
+      "description": "Email address used to identify this panel member. When `user_id` is set, this returns the user's primary Greenhouse email; for external attendees without a Greenhouse user, this is the raw calendar invitee address. `null` only when neither is available."
     },
     "response_status": {
       "type": [
         "string",
         "null"
-      ]
+      ],
+      "description": "Panel member's RSVP on the calendar invite. `needs_action` is the default until the invitee responds; `accepted`, `tentative`, and `declined` mirror the calendar response. For Outlook 365 customers, accept/decline only syncs back after the interview is updated in Greenhouse or the external event is re-edited."
     }
   },
   "description": "Schema for the 'interviewers' stream, linked to the '/v3/interviewers' endpoint."

@@ -14,10 +14,12 @@
       "format": "date-time"
     },
     "user_id": {
-      "type": "integer"
+      "type": "integer",
+      "description": "Id of the user designated as a hiring manager on the job. References a `/v3/users` row. The same user can be a hiring manager on multiple jobs."
     },
     "job_id": {
-      "type": "integer"
+      "type": "integer",
+      "description": "Id of the job this hiring-manager assignment belongs to. References a `/v3/jobs` row."
     }
   },
   "description": "Schema for the 'job_hiring_managers' stream, linked to the '/v3/job_hiring_managers' endpoint."

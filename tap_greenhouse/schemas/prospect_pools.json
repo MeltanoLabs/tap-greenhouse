@@ -14,34 +14,40 @@
       "format": "date-time"
     },
     "name": {
-      "type": "string"
+      "type": "string",
+      "description": "Name of the prospect pool, unique within the organization (case-insensitive)."
     },
     "active": {
-      "type": "boolean"
+      "type": "boolean",
+      "description": "Whether the pool is currently in use. Inactive pools are hidden from CRM workflows but are retained so existing prospects remain queryable."
     },
     "description": {
       "type": [
         "string",
         "null"
-      ]
+      ],
+      "description": "Free-text purpose statement set by the organization (max 500 characters). `null` when no description has been set."
     },
     "department_ids": {
       "type": "array",
       "items": {
         "type": "integer"
-      }
+      },
+      "description": "Ids of departments this pool is restricted to. Empty when the pool is not restricted by department; combined with `office_ids` and `job_ids`, an empty array on all three means the pool is unrestricted (available org-wide)."
     },
     "office_ids": {
       "type": "array",
       "items": {
         "type": "integer"
-      }
+      },
+      "description": "Ids of offices this pool is restricted to. Empty when the pool is not restricted by office."
     },
     "job_ids": {
       "type": "array",
       "items": {
         "type": "integer"
-      }
+      },
+      "description": "Ids of jobs this pool is restricted to. Empty when the pool is not restricted by job."
     }
   },
   "description": "Schema for the 'prospect_pools' stream, linked to the '/v3/prospect_pools' endpoint."

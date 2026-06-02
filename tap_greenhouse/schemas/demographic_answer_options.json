@@ -20,28 +20,34 @@
       "format": "date-time"
     },
     "demographic_question_id": {
-      "type": "integer"
+      "type": "integer",
+      "description": "Id of the parent `demographic_question` this option belongs to. Options are scoped to a single question and never shared across questions."
     },
     "sort_order": {
-      "type": "integer"
+      "type": "integer",
+      "description": "Display position within the parent question's choice list, ascending. Lower values render first; aliased from the underlying `priority` column."
     },
     "active": {
-      "type": "boolean"
+      "type": "boolean",
+      "description": "`true` while the option is still selectable by applicants; `false` after it has been soft-removed. Inactive options are returned by default \u2014 pass `active=true` to filter to live options only. Past `demographic_answers` continue to reference inactive rows so historical applicant submissions stay readable."
     },
     "free_form": {
-      "type": "boolean"
+      "type": "boolean",
+      "description": "If `true`, selecting this option prompts the applicant for a free-text response (e.g. an `I prefer to self-describe` choice). The free-text content itself is not exposed via Harvest."
     },
     "name": {
       "type": [
         "string",
         "null"
-      ]
+      ],
+      "description": "Display label shown to applicants in the answer list (e.g. `Non-binary`, `I prefer to self-describe`). `null` on standard Greenhouse-supplied options whose label is rendered from a localized template rather than this column."
     },
     "decline_to_answer": {
       "type": [
         "boolean",
         "null"
-      ]
+      ],
+      "description": "`true` when this option represents a structured `I don't wish to answer` choice; prefer this flag over matching on `name` when classifying declines. `null` on custom-organization options where the flag was never set; treat `null` as not a decline."
     }
   },
   "description": "Schema for the 'demographic_answer_options' stream, linked to the '/v3/demographic_answer_options' endpoint."

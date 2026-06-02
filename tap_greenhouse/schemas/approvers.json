@@ -17,10 +17,12 @@
       "type": [
         "integer",
         "null"
-      ]
+      ],
+      "description": "Position of this approver within its approver group. Lower values are asked to approve first when the parent approval flow is sequential."
     },
     "user_id": {
-      "type": "integer"
+      "type": "integer",
+      "description": "Id of the user designated as an approver. References a `/v3/users` row."
     },
     "status": {
       "type": "string",
@@ -29,76 +31,88 @@
         "due",
         "approved",
         "rejected"
-      ]
+      ],
+      "description": "Current state of this approver's response. `waiting` means earlier approvers (or the parent flow) have not yet activated this approver, `due` means a request has been sent and is pending action, `approved` and `rejected` are the resolved outcomes."
     },
     "resolved_by_id": {
       "type": [
         "integer",
         "null"
-      ]
+      ],
+      "description": "Id of the user who approved or rejected on this approver's behalf. References a `/v3/users` row. Null until `status` is `approved` or `rejected`; usually equal to `user_id` unless an admin resolved the request for them."
     },
     "resolved_at": {
       "type": [
         "string",
         "null"
       ],
-      "format": "date-time"
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when this approver was resolved (approved or rejected). Null while the approver is `waiting` or `due`."
     },
     "request_sent_at": {
       "type": [
         "string",
         "null"
       ],
-      "format": "date-time"
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when the approval request email was first sent to this approver. Null until the parent approval flow reaches this approver."
     },
     "version_sent": {
       "type": [
         "integer",
         "null"
-      ]
+      ],
+      "description": "Version of the parent approval flow at the time the request was sent to this approver. If the flow is later edited and its version increments, this value lets you tell whether the approver is responding to the current version or a stale request."
     },
     "reminder_sent_at": {
       "type": [
         "string",
         "null"
       ],
-      "format": "date-time"
+      "format": "date-time",
+      "description": "ISO 8601 timestamp of the most recent manual reminder sent to this approver. Null if no manual reminder has been sent."
     },
     "reminder_sent_by_id": {
       "type": [
         "integer",
         "null"
-      ]
+      ],
+      "description": "Id of the user who sent the most recent manual reminder. References a `/v3/users` row. Null if no manual reminder has been sent."
     },
     "reminders_sent": {
       "type": [
         "integer",
         "null"
-      ]
+      ],
+      "description": "Count of manual reminders sent to this approver. Distinct from `auto_reminders_sent`."
     },
     "approver_group_id": {
       "type": [
         "integer",
         "null"
-      ]
+      ],
+      "description": "Id of the approver group this approver belongs to. References a `/v3/approver_groups` row. The parent approval flow is reachable via the group."
     },
     "added_by_custom_field_id": {
       "type": [
         "integer",
         "null"
-      ]
+      ],
+      "description": "Id of the custom field that resolved to this approver, when the approver was added dynamically via a user-typed custom field (for example, a `Hiring Manager` field). Null when the approver was set explicitly rather than via a custom field."
     },
     "send_auto_reminder_at": {
       "type": [
         "string",
         "null"
-      ]
+      ],
+      "description": "Date (`YYYY-MM-DD`) when the next automatic reminder is scheduled to send. Null when no auto-reminder is queued \u2014 either because the approver is not `due`, automatic reminders are disabled for the organization, or the configured reminder limit has been reached."
     },
     "auto_reminders_sent": {
       "type": [
         "integer",
         "null"
-      ]
+      ],
+      "description": "Count of automatic reminders sent to this approver since the request was last issued. Resets when the parent approval flow is restarted."
     }
   },
   "description": "Schema for the 'approvers' stream, linked to the '/v3/approvers' endpoint."

@@ -28,13 +28,16 @@
         "form",
         "agency_question",
         "user_attribute"
-      ]
+      ],
+      "description": "Resource this field attaches to. Drives which create/update request shape applies and which endpoints accept the field as a `custom_fields` value (e.g. `job` fields appear on `/v3/jobs`, `candidate` fields on `/v3/candidates`)."
     },
     "sort_order": {
-      "type": "integer"
+      "type": "integer",
+      "description": "Display priority within the field group on this `field_type`. Lower values render first; alias of `priority` in V1/V2."
     },
     "name": {
-      "type": "string"
+      "type": "string",
+      "description": "Human-readable label shown to recruiters and hiring managers (e.g. `Cost Center`, `Start Date`). Unique among active fields of the same `field_type`."
     },
     "value_type": {
       "type": "string",
@@ -60,31 +63,38 @@
         "date_of_birth_hris",
         "phone_number_hris",
         "national_tax_identity_hris"
-      ]
+      ],
+      "description": "Data type and editor. `short_text`, `long_text`, `yes_no`, `single_select`, `multi_select`, `currency`, `currency_range`, `number`, `number_range`, `date`, `url`, `user`, `attachment`, `rich_text`, and the `*_hris` masked-PII variants. Only `single_select` and `multi_select` carry options \u2014 fetch them from `/v3/custom_field_options?custom_field_ids={id}`."
     },
     "private": {
-      "type": "boolean"
+      "type": "boolean",
+      "description": "If `true`, only users granted the matching `View Private` permission can see or edit this field's values."
     },
     "required": {
-      "type": "boolean"
+      "type": "boolean",
+      "description": "If `true`, a value must be supplied before the parent resource (job, offer, application, etc.) can be saved through the UI. The API still accepts blank values; enforcement happens at the form layer."
     },
     "require_approval": {
-      "type": "boolean"
+      "type": "boolean",
+      "description": "Job and opening fields only. If `true`, edits to this field's value route through the job's approval workflow before taking effect."
     },
     "trigger_new_version": {
-      "type": "boolean"
+      "type": "boolean",
+      "description": "Offer fields only. If `true`, changing this field's value on an existing offer creates a new offer version rather than mutating the current one in place."
     },
     "active": {
       "type": [
         "boolean",
         "null"
-      ]
+      ],
+      "description": "`true` when the field is in use; `false` after archival. Archived fields are still returned by default \u2014 pass `active=true` on `/v3/custom_fields` to filter to live fields only."
     },
     "updated_by_id": {
       "type": [
         "integer",
         "null"
-      ]
+      ],
+      "description": "Id of the Greenhouse user who last edited the field definition, or `null` if no edit has been recorded."
     },
     "internal_type": {
       "type": [
@@ -100,25 +110,30 @@
         "discipline",
         "offer_opening",
         null
-      ]
+      ],
+      "description": "Greenhouse-managed semantic role for system-supplied fields (`employment_type`, `offer_documents`, `start_date`, `school_name`, `degree`, `discipline`, `offer_opening`). `null` for org-defined custom fields."
     },
     "expose_in_job_board_api": {
-      "type": "boolean"
+      "type": "boolean",
+      "description": "Job fields only. If `true`, the field's value is exposed on the public Job Board API alongside the job listing."
     },
     "placeholder": {
       "type": [
         "string",
         "null"
-      ]
+      ],
+      "description": "Greyed-out hint text shown inside an empty field input in the UI."
     },
     "name_key": {
-      "type": "string"
+      "type": "string",
+      "description": "Stable lowercase identifier derived from `name` (e.g. `Cost Center` \u2192 `cost_center`). Use this \u2014 not `id` \u2014 as the canonical key when setting values via `custom_fields` on `/v3/jobs`, `/v3/offers`, `/v3/candidates`, and similar write endpoints."
     },
     "description": {
       "type": [
         "string",
         "null"
-      ]
+      ],
+      "description": "Helper text shown beneath the field label in the UI. Plain text, no markup."
     },
     "application_type": {
       "type": [
@@ -130,37 +145,43 @@
         "candidate_applications",
         "prospect_applications",
         null
-      ]
+      ],
+      "description": "Application fields only. Restricts which applications the field appears on: `all_applications`, `candidate_applications` (applicants), or `prospect_applications`. `null` for non-application fields."
     },
     "api_only": {
       "type": [
         "boolean",
         "null"
-      ]
+      ],
+      "description": "Job fields only. If `true`, the field can only be edited through Harvest API calls \u2014 the UI renders it read-only. Mutually exclusive with `required`."
     },
     "use_for_job_approvals": {
       "type": [
         "boolean",
         "null"
-      ]
+      ],
+      "description": "Job fields only. If `true`, the field is included on the job-approval form so approvers see its value when reviewing the job."
     },
     "use_for_offer_approvals": {
       "type": [
         "boolean",
         "null"
-      ]
+      ],
+      "description": "Job fields only. If `true`, the field's value flows onto the offer-approval form for jobs that route offers through approvals."
     },
     "template_token_string": {
       "type": [
         "string",
         "null"
-      ]
+      ],
+      "description": "Merge token usable in offer letter templates (e.g. `{{CUSTOM_FIELD_NAME}}`). Returned for offer fields configured with a token; `null` otherwise."
     },
     "default_value": {
       "type": [
         "object",
         "null"
-      ]
+      ],
+      "description": "Default value applied when a new parent record is created without an explicit value for this field. Shape varies by `value_type` (string for text/url, number for currency/number, option id for single_select, ISO 8601 for date)."
     }
   },
   "description": "Schema for the 'custom_fields' stream, linked to the '/v3/custom_fields' endpoint."

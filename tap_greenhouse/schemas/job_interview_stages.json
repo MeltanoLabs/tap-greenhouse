@@ -14,16 +14,20 @@
       "format": "date-time"
     },
     "job_id": {
-      "type": "integer"
+      "type": "integer",
+      "description": "Id of the job whose interview plan this stage belongs to."
     },
     "sort_order": {
-      "type": "integer"
+      "type": "integer",
+      "description": "Position of this stage within the job's interview plan, ascending. The first stage (typically `Application Review`) is `0`; `Offer` is always last."
     },
     "name": {
-      "type": "string"
+      "type": "string",
+      "description": "Name of the stage as it appears on the job's interview plan (e.g. `Application Review`, `Phone Screen`, `Onsite`, `Offer`). `Application Review` and `Offer` are added to every plan; intermediate stages can be picked from the Greenhouse library or created custom per job."
     },
     "active": {
-      "type": "boolean"
+      "type": "boolean",
+      "description": "Whether the stage is on the job's current interview plan. Inactive stages are retained so that historical `application_stages` rows continue to resolve, but no new applications enter them."
     }
   },
   "description": "Schema for the 'job_interview_stages' stream, linked to the '/v3/job_interview_stages' endpoint."

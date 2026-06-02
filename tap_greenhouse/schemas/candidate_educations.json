@@ -14,66 +14,77 @@
       "format": "date-time"
     },
     "candidate_id": {
-      "type": "integer"
+      "type": "integer",
+      "description": "Id of the candidate (person) this education entry belongs to."
     },
     "school_name_custom_field_option_id": {
       "type": [
         "integer",
         "null"
-      ]
+      ],
+      "description": "Id of the custom-field option representing the school. Resolve the display name via `GET /v3/custom_field_options?ids=<id>`; the school dictionary lives under the org's `school_name` custom field."
     },
     "degree_custom_field_option_id": {
       "type": [
         "integer",
         "null"
-      ]
+      ],
+      "description": "Id of the custom-field option representing the degree (e.g. `Bachelor's`, `Master's`). Resolve the display name via `GET /v3/custom_field_options?ids=<id>`; the degree dictionary lives under the org's `degree` custom field."
     },
     "discipline_custom_field_option_id": {
       "type": [
         "integer",
         "null"
-      ]
+      ],
+      "description": "Id of the custom-field option representing the field of study (e.g. `Computer Science`). Resolve the display name via `GET /v3/custom_field_options?ids=<id>`; the discipline dictionary lives under the org's `discipline` custom field."
     },
     "start_at": {
       "type": [
         "string",
         "null"
       ],
-      "format": "date-time"
+      "format": "date-time",
+      "description": "Start date the education entry covers, in ISO 8601. Only the month and year are surfaced on the candidate profile; any day/time component is stored but ignored by the Greenhouse UI."
     },
     "end_at": {
       "type": [
         "string",
         "null"
       ],
-      "format": "date-time"
+      "format": "date-time",
+      "description": "End date the education entry covers, in ISO 8601. `null` for in-progress education. Only the month and year are surfaced on the candidate profile."
     },
     "latest": {
-      "type": "boolean"
+      "type": "boolean",
+      "description": "`true` when this is the candidate's most recent education (by `end_at`). Greenhouse maintains this flag automatically \u2014 at most one education per candidate has `latest: true`."
     },
     "start_date_month": {
       "type": [
         "integer",
         "null"
-      ]
+      ],
+      "description": "Month component (1-12) of the education's start, when only month/year granularity is known."
     },
     "start_date_year": {
       "type": [
         "integer",
         "null"
-      ]
+      ],
+      "description": "Year component (e.g. `2014`) of the education's start, when only month/year granularity is known."
     },
     "end_date_month": {
       "type": [
         "integer",
         "null"
-      ]
+      ],
+      "description": "Month component (1-12) of the education's end, when only month/year granularity is known."
     },
     "end_date_year": {
       "type": [
         "integer",
         "null"
-      ]
+      ],
+      "description": "Year component (e.g. `2018`) of the education's end, when only month/year granularity is known."
     }
   },
   "description": "Schema for the 'candidate_educations' stream, linked to the '/v3/candidate_educations' endpoint."

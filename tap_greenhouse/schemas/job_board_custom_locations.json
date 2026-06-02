@@ -14,13 +14,16 @@
       "format": "date-time"
     },
     "value": {
-      "type": "string"
+      "type": "string",
+      "description": "Location string shown to job post creators in the per-board dropdown (e.g. `New York, NY`, `Remote (US)`). Site admins curate one row per line in the job board's location settings; the same `value` is used verbatim on `job_post_locations` rows whose `type` is `custom_list`."
     },
     "active": {
-      "type": "boolean"
+      "type": "boolean",
+      "description": "`true` while the location is selectable on new and edited job posts. Set to `false` after removal \u2014 historical `job_post_locations` rows that already reference this id are preserved so existing posts still resolve their displayable location."
     },
     "greenhouse_job_board_id": {
-      "type": "integer"
+      "type": "integer",
+      "description": "Id of the job board this location is scoped to. Custom locations are board-scoped \u2014 a given location belongs to exactly one board, and a post may only reference a custom location whose `greenhouse_job_board_id` matches its own."
     }
   },
   "description": "Schema for the 'job_board_custom_locations' stream, linked to the '/v3/job_board_custom_locations' endpoint."

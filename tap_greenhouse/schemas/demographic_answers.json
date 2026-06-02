@@ -14,22 +14,26 @@
       "format": "date-time"
     },
     "application_id": {
-      "type": "integer"
+      "type": "integer",
+      "description": "Id of the application this answer was submitted on. Demographic answers are scoped to a single application; if the same candidate applies to another job they re-answer the questionnaire and a new set of answers is created."
     },
     "demographic_question_id": {
-      "type": "integer"
+      "type": "integer",
+      "description": "Id of the `demographic_question` this answer responds to. One application produces at most one row per question per `demographic_answer_option`."
     },
     "demographic_answer_option_id": {
       "type": [
         "integer",
         "null"
-      ]
+      ],
+      "description": "Id of the `demographic_answer_option` the applicant selected. `null` when the applicant skipped the question, when the question is multi-select and this row carries only the free-form text, or when the option has since been hard-deleted. For multi-select questions one row is returned per chosen option."
     },
     "free_form_text": {
       "type": [
         "string",
         "null"
-      ]
+      ],
+      "description": "Applicant-supplied text for `free_form` answer options (e.g. an `Other \u2014 please describe` choice). `null` when the selected option is not marked free-form or when no text was entered. Highly sensitive self-identification data \u2014 handle with the same care as EEOC responses."
     }
   },
   "description": "Schema for the 'demographic_answers' stream, linked to the '/v3/demographic_answers' endpoint."

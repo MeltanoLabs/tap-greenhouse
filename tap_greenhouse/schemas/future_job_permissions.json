@@ -17,19 +17,23 @@
       "type": [
         "integer",
         "null"
-      ]
+      ],
+      "description": "Id of the department this permission is scoped to. References a `/v3/departments` row. When both `department_id` and `office_id` are `null`, the permission applies to every future job in the organization; when set, only future jobs in this department (optionally combined with `office_id`) grant the role."
     },
     "user_id": {
-      "type": "integer"
+      "type": "integer",
+      "description": "Id of the user who will receive the role on matching future jobs. References a `/v3/users` row."
     },
     "office_id": {
       "type": [
         "integer",
         "null"
-      ]
+      ],
+      "description": "Id of the office this permission is scoped to. References a `/v3/offices` row. When both `office_id` and `department_id` are `null`, the permission applies to every future job in the organization; when set, only future jobs in this office (optionally combined with `department_id`) grant the role."
     },
     "role_id": {
-      "type": "integer"
+      "type": "integer",
+      "description": "Id of the Job Admin organization role the user will be assigned on matching future jobs. References a `/v3/organization_roles` row; future job permissions can only be granted for Job Admin roles."
     }
   },
   "description": "Schema for the 'future_job_permissions' stream, linked to the '/v3/future_job_permissions' endpoint."

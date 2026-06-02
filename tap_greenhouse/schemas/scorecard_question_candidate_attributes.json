@@ -14,10 +14,12 @@
       "format": "date-time"
     },
     "scorecard_question_id": {
-      "type": "integer"
+      "type": "integer",
+      "description": "Id of the `scorecard_question` that evaluates this candidate attribute. Each row links one scorecard question to one focus attribute; the same question can be linked to multiple focus attributes (and vice versa) through additional rows."
     },
     "focus_candidate_attribute_id": {
-      "type": "integer"
+      "type": "integer",
+      "description": "Id of the `focus_candidate_attribute` this scorecard question is asking interviewers to assess. Despite the resource name, the foreign key points to a focus attribute (per interview kit) \u2014 not directly to a `job_candidate_attribute` or `candidate_attribute_type`. To get the attribute's display name or type, follow the chain `focus_candidate_attribute` \u2192 `job_candidate_attribute` \u2192 `candidate_attribute_type`."
     }
   },
   "description": "Schema for the 'scorecard_question_candidate_attributes' stream, linked to the '/v3/scorecard_question_candidate_attributes' endpoint."

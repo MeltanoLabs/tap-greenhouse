@@ -14,16 +14,20 @@
       "format": "date-time"
     },
     "scorecard_question_id": {
-      "type": "integer"
+      "type": "integer",
+      "description": "Id of the parent `scorecard_question` this option belongs to. Only questions with `answer_type` of `single_select` or `multi_select` carry options."
     },
     "name": {
-      "type": "string"
+      "type": "string",
+      "description": "Display label shown to interviewers in the scorecard dropdown (e.g. `Strong Hire`, `No Hire`). Persisted verbatim as the choice text on `scorecard_question_answers` that select this option via the `scorecard_question_answer_options` join."
     },
     "sort_order": {
-      "type": "integer"
+      "type": "integer",
+      "description": "Display position within the parent question's choice list. Lower values render first; ties fall back to insertion order. Alias of the underlying `priority` column."
     },
     "active": {
-      "type": "boolean"
+      "type": "boolean",
+      "description": "`true` while the option is selectable on new scorecards. Set to `false` after removal \u2014 historical `scorecard_question_answers` that already selected the option are preserved, so past scorecards still resolve to the original label."
     }
   },
   "description": "Schema for the 'scorecard_question_options' stream, linked to the '/v3/scorecard_question_options' endpoint."

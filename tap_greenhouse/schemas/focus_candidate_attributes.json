@@ -14,10 +14,12 @@
       "format": "date-time"
     },
     "interview_kit_id": {
-      "type": "integer"
+      "type": "integer",
+      "description": "Id of the interview kit this focus attribute belongs to. Focus attributes are configured per interview kit, so the same `job_candidate_attribute` may appear as a focus attribute on several kits within the same job."
     },
     "job_candidate_attribute_id": {
-      "type": "integer"
+      "type": "integer",
+      "description": "Id of the job's `job_candidate_attribute` (the per-job attribute catalogue entry on `/v3/job_candidate_attributes`) being marked as a focus attribute. The underlying attribute name and `candidate_attribute_type` live on that record."
     }
   },
   "description": "Schema for the 'focus_candidate_attributes' stream, linked to the '/v3/focus_candidate_attributes' endpoint."

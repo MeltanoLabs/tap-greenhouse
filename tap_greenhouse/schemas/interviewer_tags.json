@@ -14,7 +14,8 @@
       "format": "date-time"
     },
     "name": {
-      "type": "string"
+      "type": "string",
+      "description": "Label of the interviewer tag (surfaced as an Interviewer Group in the Greenhouse UI). Unique per organization and case sensitive; a user can be assigned to multiple tags, and scheduling flows filter the interviewer picker by these labels."
     }
   },
   "description": "Schema for the 'interviewer_tags' stream, linked to the '/v3/interviewer_tags' endpoint."

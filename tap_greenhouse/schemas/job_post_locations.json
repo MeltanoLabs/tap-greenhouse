@@ -17,13 +17,15 @@
       "type": [
         "string",
         "null"
-      ]
+      ],
+      "description": "Free-text location string shown on the job post (e.g. `New York, NY`, `Remote (US)`). Populated when `type` is `free_text`; `null` for `office` and `custom_list` rows, where the displayable text is resolved from the linked `office` or `job_board_custom_location` instead."
     },
     "office_id": {
       "type": [
         "integer",
         "null"
-      ]
+      ],
+      "description": "Id of the organization office this location resolves to. Populated when `type` is `office`; `null` otherwise. Cross-reference with `/v3/offices` to fetch the office name and address."
     },
     "type": {
       "type": [
@@ -34,19 +36,22 @@
         "free_text",
         "office",
         "custom_list"
-      ]
+      ],
+      "description": "How this location is sourced. `free_text` is an admin-typed string in `plain_text_location`; `office` references an organization office via `office_id`; `custom_list` references a board-scoped custom location via `custom_location_id`. Drives which of the three id/text fields is populated and is set by the parent job board's location configuration."
     },
     "job_post_id": {
       "type": [
         "integer",
         "null"
-      ]
+      ],
+      "description": "Id of the `job_post` this location is attached to. A single post can have multiple `job_post_locations` rows \u2014 one per location it's published in (e.g. `San Francisco`, `Remote (US)`, `New York` on one multi-location post)."
     },
     "custom_location_id": {
       "type": [
         "integer",
         "null"
-      ]
+      ],
+      "description": "Id of the `job_board_custom_locations` row this location resolves to. Populated when `type` is `custom_list`; `null` otherwise. Custom locations are board-scoped \u2014 confirm the parent post lives on the same `job_board_id` before reusing an id."
     }
   },
   "description": "Schema for the 'job_post_locations' stream, linked to the '/v3/job_post_locations' endpoint."

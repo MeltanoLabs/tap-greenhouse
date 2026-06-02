@@ -14,7 +14,8 @@
       "format": "date-time"
     },
     "name": {
-      "type": "string"
+      "type": "string",
+      "description": "Display label shown to recruiters and hiring managers when closing an opening (e.g. `Hire - New Headcount`, `Hire - Backfill`, `On Hold`, `Not Filling`). Unique within the organization. Names that start with `Hire -` are treated as hire outcomes in Greenhouse reporting; other names are non-hire outcomes. Free-text, since each organization customizes its own list under Configure > Custom Options > Close Reasons for Job Openings."
     }
   },
   "description": "Schema for the 'close_reasons' stream, linked to the '/v3/close_reasons' endpoint."

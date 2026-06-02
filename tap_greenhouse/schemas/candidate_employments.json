@@ -14,30 +14,36 @@
       "format": "date-time"
     },
     "candidate_id": {
-      "type": "integer"
+      "type": "integer",
+      "description": "Id of the candidate (person) this employment entry belongs to."
     },
     "company_name": {
-      "type": "string"
+      "type": "string",
+      "description": "Free-text name of the employer, as entered on the candidate's profile."
     },
     "title": {
-      "type": "string"
+      "type": "string",
+      "description": "Free-text job title held at this employer."
     },
     "start_date": {
       "type": "string",
-      "format": "date"
+      "format": "date",
+      "description": "Start date of this employment, as an ISO 8601 date. The Greenhouse UI displays only the month and year."
     },
     "end_date": {
       "type": [
         "string",
         "null"
       ],
-      "format": "date"
+      "format": "date",
+      "description": "End date of this employment, as an ISO 8601 date. `null` indicates the employment is current (ongoing). The Greenhouse UI displays only the month and year."
     },
     "latest": {
       "type": [
         "boolean",
         "null"
-      ]
+      ],
+      "description": "`true` when this is the candidate's most recent employment. Greenhouse maintains this flag automatically \u2014 the current job (`end_date: null`) wins, otherwise the entry with the latest `end_date` \u2014 and at most one employment per candidate has `latest: true`. Mirrors the `company` and `title` shown on the parent candidate record."
     }
   },
   "description": "Schema for the 'candidate_employments' stream, linked to the '/v3/candidate_employments' endpoint."

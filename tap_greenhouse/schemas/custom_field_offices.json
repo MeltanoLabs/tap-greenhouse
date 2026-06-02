@@ -14,10 +14,12 @@
       "format": "date-time"
     },
     "custom_field_id": {
-      "type": "integer"
+      "type": "integer",
+      "description": "Id of the custom field whose visibility is being scoped. References a `/v3/custom_fields` row."
     },
     "office_id": {
-      "type": "integer"
+      "type": "integer",
+      "description": "Id of the office the custom field is restricted to. References a `/v3/offices` row."
     }
   },
   "description": "Schema for the 'custom_field_offices' stream, linked to the '/v3/custom_field_offices' endpoint."
