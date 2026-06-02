@@ -14,13 +14,16 @@
       "format": "date-time"
     },
     "job_interview_stage_id": {
-      "type": "integer"
+      "type": "integer",
+      "description": "Id of the `job_interview_stage` this slot belongs to (the section of the job's interview plan, e.g. \"Onsite\")."
     },
     "job_id": {
-      "type": "integer"
+      "type": "integer",
+      "description": "Id of the job whose interview plan this slot is defined on."
     },
     "sort_order": {
-      "type": "integer"
+      "type": "integer",
+      "description": "Position of this slot within its `job_interview_stage`, ascending. The first interview in the stage is `1`."
     },
     "scheduling_type": {
       "type": [
@@ -33,37 +36,44 @@
         "take_home_test",
         "offer",
         null
-      ]
+      ],
+      "description": "How the slot is fulfilled when a candidate hits the stage. `needs_scheduling` is a calendared interview that coordinators book against candidate availability; `take_home_test` is an asynchronous test sent through Greenhouse; `offer` is the offer step; `none` is a feedback-only slot (no scheduling). `null` for legacy steps with no scheduling type set."
     },
     "duration": {
       "type": [
         "integer",
         "null"
-      ]
+      ],
+      "description": "Default length of the interview in minutes, used to seed the scheduler. `null` if not set on the slot."
     },
     "summary": {
       "type": [
         "string",
         "null"
-      ]
+      ],
+      "description": "Candidate-facing summary copied from the interview's default Interview Prep when the slot was added to the job. Snapshot only \u2014 edits made later in the job's Interview Kit are not reflected here; use the Interview Kits endpoint for the live value."
     },
     "instructions": {
       "type": [
         "string",
         "null"
-      ]
+      ],
+      "description": "Interviewer-facing instructions copied from the interview's default Interview Prep when the slot was added to the job. Snapshot only \u2014 edits made later in the job's Interview Kit are not reflected here; use the Interview Kits endpoint for the live value."
     },
     "name": {
-      "type": "string"
+      "type": "string",
+      "description": "Name of the interview slot as it appears on the job's interview plan (e.g. \"Recruiter Phone Screen\", \"Hiring Manager Interview\")."
     },
     "active": {
-      "type": "boolean"
+      "type": "boolean",
+      "description": "Whether the slot is on the job's current interview plan. Inactive slots are retained for historical interviews that were scheduled against them but are not used for new applications."
     },
     "require_scorecard": {
       "type": [
         "boolean",
         "null"
-      ]
+      ],
+      "description": "Whether interviewers must submit a scorecard for interviews scheduled against this slot. Only meaningful for `needs_scheduling` and `take_home_test` slots; `null` for `none` and `offer` slots, which never collect scorecards."
     }
   },
   "description": "Schema for the 'job_interviews' stream, linked to the '/v3/job_interviews' endpoint."

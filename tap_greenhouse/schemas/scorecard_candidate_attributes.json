@@ -14,19 +14,23 @@
       "format": "date-time"
     },
     "scorecard_id": {
-      "type": "integer"
+      "type": "integer",
+      "description": "Id of the scorecard this attribute rating belongs to. One row per (scorecard, attribute) pair \u2014 the interviewer rated this candidate on this attribute on this scorecard."
     },
     "candidate_attribute_rating": {
-      "type": "string"
+      "type": "string",
+      "description": "Interviewer's rating for the attribute on this scorecard. One of `definitely_not`, `no`, `yes`, `strong_yes`, `mixed`, or `no_decision`. `no_decision` is recorded when the row exists (e.g. a `note` was left) but no rating was selected."
     },
     "job_candidate_attribute_id": {
-      "type": "integer"
+      "type": "integer",
+      "description": "Id of the job's `job_candidate_attribute` being rated (the per-job attribute catalogue entry on `/v3/job_candidate_attributes`). The attribute's display name and `candidate_attribute_type` live on that record."
     },
     "note": {
       "type": [
         "string",
         "null"
-      ]
+      ],
+      "description": "Free-text note the interviewer left for this attribute (e.g. a brief justification for the rating). `null` when no note was provided."
     }
   },
   "description": "Schema for the 'scorecard_candidate_attributes' stream, linked to the '/v3/scorecard_candidate_attributes' endpoint."

@@ -14,20 +14,24 @@
       "format": "date-time"
     },
     "user_id": {
-      "type": "integer"
+      "type": "integer",
+      "description": "Id of the user this email belongs to. References a `/v3/users` row."
     },
     "email": {
-      "type": "string"
+      "type": "string",
+      "description": "The email address. Stored case-insensitively and unique across all users in Greenhouse; an email can be attached to only one user at a time."
     },
     "verified": {
-      "type": "boolean"
+      "type": "boolean",
+      "description": "Whether the user has confirmed ownership of this address. Only verified emails can be used to send mail on behalf of the user or to match interviewer calendars."
     },
     "verification_token_sent_at": {
       "type": [
         "string",
         "null"
       ],
-      "format": "date-time"
+      "format": "date-time",
+      "description": "When the most recent verification email was sent, as an ISO 8601 timestamp. Null if no verification email is outstanding (the address is already verified, or verification was never requested)."
     }
   },
   "description": "Schema for the 'user_emails' stream, linked to the '/v3/user_emails' endpoint."

@@ -14,10 +14,12 @@
       "format": "date-time"
     },
     "job_id": {
-      "type": "integer"
+      "type": "integer",
+      "description": "Id of the job this hiring-team assignment belongs to. References a `/v3/jobs` row."
     },
     "user_id": {
-      "type": "integer"
+      "type": "integer",
+      "description": "Id of the user assigned to the job in this role. References a `/v3/users` row. The same user can hold multiple roles on the same job; each role is a separate row."
     },
     "type": {
       "type": "string",
@@ -25,10 +27,12 @@
         "sourcer",
         "recruiter",
         "coordinator"
-      ]
+      ],
+      "description": "Hiring-team role this user holds on the job. One of `sourcer`, `recruiter`, or `coordinator`. Hiring managers are exposed on the separate `/v3/job_hiring_managers` endpoint."
     },
     "responsible": {
-      "type": "boolean"
+      "type": "boolean",
+      "description": "If `true`, this user is the responsible recruiter or coordinator for the job \u2014 the default assignee for new applications created against this job. Always `false` for `sourcer` rows, which do not carry candidate responsibility."
     }
   },
   "description": "Schema for the 'job_owners' stream, linked to the '/v3/job_owners' endpoint."

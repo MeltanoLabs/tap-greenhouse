@@ -17,58 +17,68 @@
       "type": [
         "integer",
         "null"
-      ]
+      ],
+      "description": "Id of the note created when the candidate was submitted by an agency, or `null` if the application did not come through an agency."
     },
     "candidate_id": {
-      "type": "integer"
+      "type": "integer",
+      "description": "Id of the candidate (person) this application belongs to."
     },
     "coordinator_id": {
       "type": [
         "integer",
         "null"
-      ]
+      ],
+      "description": "Id of the user assigned as coordinator on the application's job, or `null` when unassigned."
     },
     "job_id": {
       "type": [
         "integer",
         "null"
-      ]
+      ],
+      "description": "Id of the job this application is on. `null` for jobless prospect applications."
     },
     "job_post_id": {
       "type": [
         "integer",
         "null"
-      ]
+      ],
+      "description": "Id of the job post the candidate applied through, or `null` if the application was created internally rather than from a posted role."
     },
     "recruiter_id": {
       "type": [
         "integer",
         "null"
-      ]
+      ],
+      "description": "Id of the user assigned as recruiter on the application's job, or `null` when unassigned."
     },
     "referrer_id": {
       "type": [
         "integer",
         "null"
-      ]
+      ],
+      "description": "Id of the referrer who credited this application, or `null` if there was no referral. References a referrer, not a Greenhouse user."
     },
     "source_id": {
       "type": [
         "integer",
         "null"
-      ]
+      ],
+      "description": "Id of the source the application is attributed to (e.g. a job board, an event, an employee referral source). `null` if no source is set."
     },
     "stage_id": {
       "type": [
         "integer",
         "null"
-      ]
+      ],
+      "description": "Id of the interview stage the candidate is currently in for this application. `null` for prospect applications and applications in a terminal state."
     },
     "stage_name": {
       "type": [
         "string",
         "null"
-      ]
+      ],
+      "description": "Display name of the candidate's current interview stage on this application."
     },
     "status": {
       "type": "string",
@@ -77,36 +87,42 @@
         "hired",
         "converted",
         "in_process"
-      ]
+      ],
+      "description": "Lifecycle status of the application. `in_process` for active candidates, `rejected` for rejected applications, `hired` once an offer is closed and the hire endpoint has fired, and `converted` for prospect applications that have been promoted to a candidate application via `convert_to_candidate`."
     },
     "needs_decision": {
       "type": [
         "boolean",
         "null"
-      ]
+      ],
+      "description": "`true` when the application is waiting on a hiring-team decision (scorecard completion, advance/reject, etc.) in its current stage."
     },
     "prospect": {
-      "type": "boolean"
+      "type": "boolean",
+      "description": "`true` for prospect applications (sourced candidates not yet attached to a single job), `false` for candidate applications on a specific job."
     },
     "rejected_at": {
       "type": [
         "string",
         "null"
       ],
-      "format": "date-time"
+      "format": "date-time",
+      "description": "Timestamp the application was rejected, in ISO 8601. `null` for applications that have not been rejected."
     },
     "last_activity_at": {
       "type": [
         "string",
         "null"
       ],
-      "format": "date-time"
+      "format": "date-time",
+      "description": "Timestamp of the most recent activity on this application (notes, emails, stage changes, etc.), in ISO 8601."
     },
     "location_address": {
       "type": [
         "string",
         "null"
-      ]
+      ],
+      "description": "Free-form location string captured on the application (typically from the job post's location question)."
     },
     "answers": {
       "type": [
@@ -117,22 +133,26 @@
         "type": "object",
         "properties": {
           "question": {
-            "type": "string"
+            "type": "string",
+            "description": "Application-form question the candidate answered."
           },
           "answer": {
             "type": [
               "string",
               "null"
-            ]
+            ],
+            "description": "Candidate's free-text answer to the question."
           }
         }
-      }
+      },
+      "description": "Free-text answers the candidate provided on the job post application form. Each entry pairs the question text with the candidate's answer."
     },
     "prospective_job_ids": {
       "type": "array",
       "items": {
         "type": "integer"
-      }
+      },
+      "description": "For prospect applications, the ids of jobs the prospect is being considered for. Empty for non-prospect applications and for jobless prospects."
     },
     "custom_fields": {
       "type": [

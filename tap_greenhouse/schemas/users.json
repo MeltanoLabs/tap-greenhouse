@@ -26,55 +26,65 @@
       ]
     },
     "primary_email": {
-      "type": "string"
+      "type": "string",
+      "description": "Primary email address on the user's account. Sign-in identifier and the address Greenhouse uses for outbound mail; additional verified addresses are not surfaced here. Service accounts (integration/ISU users) have no email and are excluded from this endpoint by default; when included via `show_service_accounts=true`, their `primary_email` is an empty string."
     },
     "job_title": {
       "type": [
         "string",
         "null"
-      ]
+      ],
+      "description": "Free-form job title set on the user's Greenhouse profile (e.g. `Senior Recruiter`). Not synchronized with any HRIS title."
     },
     "agency_id": {
       "type": [
         "integer",
         "null"
-      ]
+      ],
+      "description": "Id of the staffing agency this user belongs to, when the user is an external agency recruiter rather than an employee of your organization. `null` for in-house users."
     },
     "name": {
       "type": [
         "string",
         "null"
-      ]
+      ],
+      "description": "Concatenation of `first_name` and `last_name` rendered as a single display string. Provided for convenience; partners that need either component should read `first_name`/`last_name` directly."
     },
     "deactivated": {
-      "type": "boolean"
+      "type": "boolean",
+      "description": "Whether the user has been deactivated. Deactivated users cannot sign in or be assigned to new jobs, but their historical activity (notes, scorecards, emails) is preserved. Toggle via `POST /v3/users/{id}/deactivate` and `POST /v3/users/{id}/activate`."
     },
     "site_admin": {
-      "type": "boolean"
+      "type": "boolean",
+      "description": "Whether the user holds the Site Admin role. Site admins have unrestricted access to every non-confidential job and to organization-level settings. Demote a site admin to a Basic user with `POST /v3/users/{id}/revoke_permissions`."
     },
     "employee_id": {
       "type": [
         "string",
         "null"
-      ]
+      ],
+      "description": "Partner-supplied external employee identifier, typically the user's HRIS or payroll id. Free-form string; not unique across organizations and `null` when no employee id has been set."
     },
     "linked_candidate_ids": {
       "type": "array",
       "items": {
         "type": "integer"
-      }
+      },
+      "description": "Ids of candidate records linked to this user. Populated when an employee is represented by both a user record (for Greenhouse access) and a candidate record (for past or internal applications)."
     },
     "office_ids": {
       "type": "array",
       "items": {
         "type": "integer"
-      }
+      },
+      "description": "Ids of the offices this user is assigned to. Used to scope future job permissions and to filter the user list by office. Empty when the user is not pinned to any office."
     },
     "department_ids": {
       "type": "array",
       "items": {
         "type": "integer"
-      }
+      },
+      "description": "Ids of the departments this user is assigned to. Used to scope future job permissions and to filter the user list by department. Empty when the user is not pinned to any department."
     },
     "interviewer_tags": {
       "type": "array",
@@ -93,7 +103,8 @@
             "type": "string"
           }
         }
-      }
+      },
+      "description": "Interviewer tags applied to this user \u2014 the labeled skill or panel groupings (e.g. `Senior Engineer`, `Bar Raiser`) used to suggest qualified interviewers when building an interview plan. Each entry pairs the tag's `id` with its `name`."
     },
     "emails": {
       "type": [
@@ -102,7 +113,8 @@
       ],
       "items": {
         "type": "string"
-      }
+      },
+      "description": "All email addresses on the user's account, including the primary address and any additional verified addresses."
     },
     "custom_fields": {
       "type": [

@@ -14,23 +14,28 @@
       "format": "date-time"
     },
     "approval_flow_id": {
-      "type": "integer"
+      "type": "integer",
+      "description": "Id of the approval flow this group belongs to."
     },
     "approvals_required": {
-      "type": "integer"
+      "type": "integer",
+      "description": "Number of approvers in this group whose `approve` actions are needed to resolve the group as approved (i.e., the M in \"M of N\"). Defaults to 1. The group resolves as rejected once enough approvers reject that the remaining members can no longer reach this threshold."
     },
     "sort_order": {
-      "type": "integer"
+      "type": "integer",
+      "description": "Zero-based position of this group within its approval flow. Groups with the same `sort_order` resolve in parallel; groups with a higher `sort_order` only become actionable once all earlier groups have resolved as approved."
     },
     "required_for_exception": {
-      "type": "boolean"
+      "type": "boolean",
+      "description": "When `true`, this group must still approve even when the approval flow is being processed as an exception (where other groups can be skipped). Defaults to `false`."
     },
     "resolved_at": {
       "type": [
         "string",
         "null"
       ],
-      "format": "date-time"
+      "format": "date-time",
+      "description": "ISO 8601 timestamp at which the group reached a terminal state (all `approvals_required` approvals received, or enough rejections to make that impossible). Null while the group is still pending."
     }
   },
   "description": "Schema for the 'approver_groups' stream, linked to the '/v3/approver_groups' endpoint."

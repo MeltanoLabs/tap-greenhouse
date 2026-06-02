@@ -17,10 +17,12 @@
       "type": [
         "integer",
         "null"
-      ]
+      ],
+      "description": "Id of the Greenhouse user this referrer maps to, when the referrer is an internal employee. `null` for referrers that are not Greenhouse users (e.g. external agency recruiters, social-share visitors, LinkedIn referrers) and for referrers whose underlying user has since been removed. This is not the same id space as `applications.referrer_id` \u2014 applications point at this referrer's `id`, not at `user_id`."
     },
     "name": {
-      "type": "string"
+      "type": "string",
+      "description": "Display name of the referrer as it appears on the candidate's application under \"Source & referrer\" (the \"Who Gets Credit\" label). For employee referrals this is typically the referring user's name; for non-user referrers it is the name captured at referral time."
     }
   },
   "description": "Schema for the 'referrers' stream, linked to the '/v3/referrers' endpoint."

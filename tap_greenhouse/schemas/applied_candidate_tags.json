@@ -14,10 +14,12 @@
       "format": "date-time"
     },
     "candidate_tag_id": {
-      "type": "integer"
+      "type": "integer",
+      "description": "Id of the tag in your organization's candidate-tag dictionary. References a `/v3/candidate_tags` row."
     },
     "candidate_id": {
-      "type": "integer"
+      "type": "integer",
+      "description": "Id of the candidate (person) the tag is applied to."
     }
   },
   "description": "Schema for the 'applied_candidate_tags' stream, linked to the '/v3/applied_candidate_tags' endpoint."

@@ -14,38 +14,46 @@
       "format": "date-time"
     },
     "title": {
-      "type": "string"
+      "type": "string",
+      "description": "Public-facing title shown to candidates on the job board (e.g. `Senior Backend Engineer, Remote`). Distinct from the internal `job.name` \u2014 a single job can have several posts with different titles, one per board, language, or geography."
     },
     "internal": {
-      "type": "boolean"
+      "type": "boolean",
+      "description": "If `true`, the post lives on an internal job board and is visible only to existing employees signed in to the internal board. If `false`, the post is external and lives on a public-facing `job_board`. Set by the board the post is associated with at create time."
     },
     "active": {
-      "type": "boolean"
+      "type": "boolean",
+      "description": "If `true`, the post has not been deleted. Deleted posts are excluded by default; pass `active=false` on the list endpoint to retrieve them."
     },
     "live": {
-      "type": "boolean"
+      "type": "boolean",
+      "description": "If `true`, the post is published (`job_application_status` is `live`) and its job board is also live. A post on an unpublished board is **not** `live` \u2014 its `public_url` returns a 404 until the board is enabled."
     },
     "featured": {
-      "type": "boolean"
+      "type": "boolean",
+      "description": "If `true`, the post is currently featured on the organization's internal job board and surfaces in the weekly internal-jobs email. Only internal posts can be featured, and at most three can be featured at a time."
     },
     "first_published_at": {
       "type": [
         "string",
         "null"
       ],
-      "format": "date-time"
+      "format": "date-time",
+      "description": "Timestamp the post first transitioned to `live`, in ISO 8601. `null` for posts that have never been published."
     },
     "content": {
       "type": [
         "string",
         "null"
-      ]
+      ],
+      "description": "HTML body of the post shown to candidates on the job board. For internal posts this returns the `internal_content` instead. Sanitized server-side \u2014 only a limited element/attribute allowlist (including `iframe`, `video`, `source`) survives. `null` while the post is still being scaffolded."
     },
     "internal_content": {
       "type": [
         "string",
         "null"
-      ]
+      ],
+      "description": "HTML body shown on the internal job board when the post is also configured as internal. `null` for external-only posts. Same sanitization rules as `content`."
     },
     "language": {
       "type": [
@@ -72,26 +80,31 @@
         "se",
         "tg",
         "th"
-      ]
+      ],
+      "description": "ISO 639-1 locale of the post, used to render the candidate-facing application form in the matching language (e.g. `en`, `fr`, `ja`). `null` when no locale has been chosen."
     },
     "public_url": {
       "type": [
         "string",
         "null"
       ],
-      "format": "uri"
+      "format": "uri",
+      "description": "Canonical public URL of the post on its job board, including the `gh_jid` tracking parameter. `null` when the post has no associated job board or the board has no public URL configured."
     },
     "demographic_question_set_id": {
       "type": [
         "integer",
         "null"
-      ]
+      ],
+      "description": "Id of the demographic question set surfaced to candidates on this post for diversity, equity, and inclusion (DE&I) reporting. `null` when the post does not collect demographic data."
     },
     "job_id": {
-      "type": "integer"
+      "type": "integer",
+      "description": "Id of the parent job (requisition) this post belongs to. A single job can have multiple posts; the job is the source of truth for the hiring team, openings, and interview plan."
     },
     "job_board_id": {
-      "type": "integer"
+      "type": "integer",
+      "description": "Id of the `job_board` this post is published to. Resolves to either an external (careers site, syndicated board) or internal job board depending on `internal`. Each post belongs to exactly one board at a time."
     },
     "questions": {
       "type": "array",
@@ -102,13 +115,15 @@
             "type": [
               "integer",
               "null"
-            ]
+            ],
+            "description": "Id of the question. `null` for default questions that are rendered from configuration rather than persisted per post (e.g. the built-in `first_name` field)."
           },
           "description": {
             "type": [
               "string",
               "null"
-            ]
+            ],
+            "description": "Help text shown below the question label to give candidates additional context. `null` when no help text is set."
           },
           "answer_type": {
             "type": "string",
@@ -120,22 +135,27 @@
               "multi_select",
               "attachment",
               "hidden"
-            ]
+            ],
+            "description": "Input type the candidate uses to answer. `short_text` and `long_text` are free-text inputs, `single_select` and `multi_select` use the `options` array, `boolean` is a yes/no, `attachment` accepts a file upload, and `hidden` is set programmatically without rendering a field."
           },
           "required": {
             "type": [
               "boolean",
               "null"
-            ]
+            ],
+            "description": "If `true`, the candidate must answer this question to submit the application. `null` for default questions whose required-ness is driven by board-level configuration."
           },
           "private": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "If `true`, answers to this question are visible only to users with explicit access (e.g. private notes, API-only questions). Defaults to `false`."
           },
           "label": {
-            "type": "string"
+            "type": "string",
+            "description": "Human-readable label rendered above the input on the application form."
           },
           "name": {
-            "type": "string"
+            "type": "string",
+            "description": "Stable form-field name used when submitting an application (e.g. `question_42` for a custom question, `first_name` for a default field). Use this when mapping responses back to a question."
           },
           "options": {
             "type": "array",
@@ -143,16 +163,20 @@
               "type": "object",
               "properties": {
                 "id": {
-                  "type": "integer"
+                  "type": "integer",
+                  "description": "Id of the option, stable across edits to the option label."
                 },
                 "label": {
-                  "type": "string"
+                  "type": "string",
+                  "description": "Human-readable text shown to the candidate for this option."
                 }
               }
-            }
+            },
+            "description": "Selectable answer options for `single_select` and `multi_select` questions. Empty for other answer types."
           }
         }
-      }
+      },
+      "description": "Application form questions presented to candidates on this post, including default questions (resume, cover letter, basic info) and any custom questions configured by the hiring team. Ordered as they appear on the form."
     }
   },
   "description": "Schema for the 'job_posts' stream, linked to the '/v3/job_posts' endpoint."

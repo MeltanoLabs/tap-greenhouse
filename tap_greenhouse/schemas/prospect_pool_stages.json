@@ -14,13 +14,16 @@
       "format": "date-time"
     },
     "prospect_pool_id": {
-      "type": "integer"
+      "type": "integer",
+      "description": "Id of the prospect pool this stage belongs to. Stage names are unique (case-insensitive) within a pool but can repeat across pools."
     },
     "name": {
-      "type": "string"
+      "type": "string",
+      "description": "Name of the stage as it appears inside the prospect pool (e.g. `Not Reviewed`, `In Discussion`, `Keep Warm - Senior`). Stage names are entirely customer-defined per pool; there is no Greenhouse-managed default set, though new pools are typically seeded with starter stages such as `Not Reviewed`."
     },
     "sort_order": {
-      "type": "integer"
+      "type": "integer",
+      "description": "Position of this stage within its prospect pool, ascending. Used by the Greenhouse UI to render stages in a fixed order; lower values appear first."
     }
   },
   "description": "Schema for the 'prospect_pool_stages' stream, linked to the '/v3/prospect_pool_stages' endpoint."

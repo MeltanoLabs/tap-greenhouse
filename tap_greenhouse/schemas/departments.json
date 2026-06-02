@@ -14,19 +14,22 @@
       "format": "date-time"
     },
     "name": {
-      "type": "string"
+      "type": "string",
+      "description": "Display name of the department (e.g. `Engineering`, `Marketing`)."
     },
     "parent_id": {
       "type": [
         "integer",
         "null"
-      ]
+      ],
+      "description": "Id of the parent department in the organization's department tree. `null` for top-level departments. References another `/v3/departments` row."
     },
     "external_id": {
       "type": [
         "string",
         "null"
-      ]
+      ],
+      "description": "Partner-supplied identifier for the department, typically the matching id from an HRIS or other external system. Free-form string and `null` when no external id has been set."
     }
   },
   "description": "Schema for the 'departments' stream, linked to the '/v3/departments' endpoint."

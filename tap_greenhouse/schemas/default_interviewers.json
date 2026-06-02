@@ -14,10 +14,12 @@
       "format": "date-time"
     },
     "user_id": {
-      "type": "integer"
+      "type": "integer",
+      "description": "Id of the user pre-selected as a default interviewer for this interview kit. References a `/v3/users` row. Only individual-user defaults appear here \u2014 defaults configured in the Greenhouse UI as interviewer groups or hiring-team roles are not returned by this endpoint."
     },
     "interview_kit_id": {
-      "type": "integer"
+      "type": "integer",
+      "description": "Id of the interview kit this default-interviewer assignment belongs to. References a `/v3/interview_kits` row; the kit is tied to one stage on one job's interview plan, so this id transitively scopes the assignment to a specific job and stage."
     }
   },
   "description": "Schema for the 'default_interviewers' stream, linked to the '/v3/default_interviewers' endpoint."

@@ -14,31 +14,36 @@
       "format": "date-time"
     },
     "name": {
-      "type": "string"
+      "type": "string",
+      "description": "Display name of the office (e.g. `San Francisco`, `Remote (US)`). Unique among active offices in the same organization."
     },
     "parent_id": {
       "type": [
         "integer",
         "null"
-      ]
+      ],
+      "description": "Id of the parent office when offices are organized hierarchically. `null` for top-level offices. References another `/v3/offices` row in the same organization."
     },
     "external_id": {
       "type": [
         "string",
         "null"
-      ]
+      ],
+      "description": "Stable identifier supplied by the customer or HRIS for cross-system reconciliation. `null` when no external id has been set. Available when the `org_structure_external_id` product flag is enabled."
     },
     "location": {
       "type": [
         "string",
         "null"
-      ]
+      ],
+      "description": "Free-form physical location string for the office (e.g. `New York, NY, USA`). `null` for offices that have no location set, including most remote offices."
     },
     "primary_in_house_contact_user_id": {
       "type": [
         "integer",
         "null"
-      ]
+      ],
+      "description": "Id of the Greenhouse user designated as the office's primary internal contact, typically the local recruiting lead. References a `/v3/users` row. `null` when no contact has been assigned."
     }
   },
   "description": "Schema for the 'offices' stream, linked to the '/v3/offices' endpoint."

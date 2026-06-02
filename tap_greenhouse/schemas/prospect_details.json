@@ -14,37 +14,43 @@
       "format": "date-time"
     },
     "application_id": {
-      "type": "integer"
+      "type": "integer",
+      "description": "Id of the prospect application this record belongs to. Each prospect detail is attached to exactly one application; prospects are applications that have not yet been moved onto a job."
     },
     "pool_id": {
       "type": [
         "integer",
         "null"
-      ]
+      ],
+      "description": "Id of the prospect pool the prospect currently sits in (`prospect_pools.id`). `null` when the prospect has been added to the CRM without being placed in a pool yet."
     },
     "pool_stage_id": {
       "type": [
         "integer",
         "null"
-      ]
+      ],
+      "description": "Id of the prospect pool stage the prospect currently sits in (`prospect_pool_stages.id`). `null` when the prospect has no current stage; when set, it is always a stage that belongs to `pool_id`."
     },
     "prospect_owner_id": {
       "type": [
         "integer",
         "null"
-      ]
+      ],
+      "description": "Id of the Greenhouse user designated as the owner of this prospect. `null` when the prospect is unowned."
     },
     "department_id": {
       "type": [
         "integer",
         "null"
-      ]
+      ],
+      "description": "Id of the department recorded on the prospect's prospective department (the department the prospect is being considered for), derived from the underlying application."
     },
     "office_id": {
       "type": [
         "integer",
         "null"
-      ]
+      ],
+      "description": "Id of the office recorded on the prospect's prospective department (the office the prospect is being considered for), derived from the underlying application."
     }
   },
   "description": "Schema for the 'prospect_details' stream, linked to the '/v3/prospect_details' endpoint."

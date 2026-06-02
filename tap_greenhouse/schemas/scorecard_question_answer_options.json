@@ -14,10 +14,12 @@
       "format": "date-time"
     },
     "scorecard_question_option_id": {
-      "type": "integer"
+      "type": "integer",
+      "description": "Id of the selected option in the question's option list. References a `/v3/scorecard_question_options` row."
     },
     "scorecard_question_answer_id": {
-      "type": "integer"
+      "type": "integer",
+      "description": "Id of the answer this selection belongs to. References a `/v3/scorecard_question_answers` row."
     }
   },
   "description": "Schema for the 'scorecard_question_answer_options' stream, linked to the '/v3/scorecard_question_answer_options' endpoint."

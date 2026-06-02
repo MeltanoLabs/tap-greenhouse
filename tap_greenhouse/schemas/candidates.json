@@ -29,53 +29,62 @@
       "type": [
         "string",
         "null"
-      ]
+      ],
+      "description": "Preferred or chosen name the candidate goes by, when different from their legal first name."
     },
     "company": {
       "type": [
         "string",
         "null"
-      ]
+      ],
+      "description": "Candidate's current company, as entered on their profile."
     },
     "title": {
       "type": [
         "string",
         "null"
-      ]
+      ],
+      "description": "Candidate's current job title, as entered on their profile."
     },
     "last_activity_at": {
       "type": [
         "string",
         "null"
       ],
-      "format": "date-time"
+      "format": "date-time",
+      "description": "Timestamp of the most recent activity on any of the candidate's applications (notes, emails, stage changes, etc.), in ISO 8601."
     },
     "private": {
       "type": [
         "boolean",
         "null"
-      ]
+      ],
+      "description": "If true, the candidate is restricted to users with `View Private Candidates` access. Defaults to `false`."
     },
     "can_email": {
-      "type": "boolean"
+      "type": "boolean",
+      "description": "Whether this candidate has consented to receive email communication from your organization."
     },
     "time_zone": {
       "type": [
         "string",
         "null"
-      ]
+      ],
+      "description": "Candidate's time zone as a Rails-style identifier (for example `Eastern Time (US & Canada)`)."
     },
     "tags": {
       "type": "array",
       "items": {
         "type": "string"
-      }
+      },
+      "description": "Candidate tag names applied to this candidate within your organization."
     },
     "linked_user_ids": {
       "type": "array",
       "items": {
         "type": "integer"
-      }
+      },
+      "description": "Ids of Greenhouse users linked to this candidate (employees represented by both a user record and a candidate record)."
     },
     "phone_numbers": {
       "type": "array",
@@ -89,7 +98,8 @@
             "type": "string"
           }
         }
-      }
+      },
+      "description": "Phone numbers on the candidate's profile. Each entry pairs the `value` with a `type` such as `mobile`, `home`, `work`, `skype`, or `other`."
     },
     "addresses": {
       "type": "array",
@@ -103,7 +113,8 @@
             "type": "string"
           }
         }
-      }
+      },
+      "description": "Postal addresses on the candidate's profile. Each entry pairs the `value` with a `type` such as `home`, `work`, or `other`."
     },
     "email_addresses": {
       "type": "array",
@@ -117,7 +128,8 @@
             "type": "string"
           }
         }
-      }
+      },
+      "description": "Email addresses on the candidate's profile. Each entry pairs the `value` with a `type` such as `personal`, `work`, or `other`."
     },
     "website_addresses": {
       "type": "array",
@@ -131,7 +143,8 @@
             "type": "string"
           }
         }
-      }
+      },
+      "description": "Personal websites or portfolio URLs on the candidate's profile. Each entry pairs the `value` with a `type` such as `personal`, `company`, `portfolio`, `blog`, or `other`."
     },
     "social_media_addresses": {
       "type": "array",
@@ -142,7 +155,8 @@
             "type": "string"
           }
         }
-      }
+      },
+      "description": "Social media handles or URLs on the candidate's profile. Social entries are untyped \u2014 only the `value` is returned."
     },
     "custom_fields": {
       "type": [

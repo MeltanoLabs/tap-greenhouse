@@ -14,32 +14,37 @@
       "format": "date-time"
     },
     "application_id": {
-      "type": "integer"
+      "type": "integer",
+      "description": "Id of the application this rejection record belongs to. Rejection details exist only for rejected applications; there is one record per rejected application."
     },
     "rejected_by_id": {
       "type": [
         "integer",
         "null"
-      ]
+      ],
+      "description": "Id of the user who rejected the application. `null` for system-initiated rejections such as auto-rejection workflows."
     },
     "rejection_note_id": {
       "type": [
         "integer",
         "null"
-      ]
+      ],
+      "description": "Id of the note created on the application capturing the free-text rejection message, or `null` when no note was entered. The note body itself is not returned here \u2014 fetch it through `/v3/notes/{id}`."
     },
     "rejection_reason_id": {
       "type": [
         "integer",
         "null"
-      ]
+      ],
+      "description": "Id of the rejection reason selected for the application. References a `/v3/rejection_reasons` row scoped to the organization. `null` when the application was rejected without a reason."
     },
     "rejected_at": {
       "type": [
         "string",
         "null"
       ],
-      "format": "date-time"
+      "format": "date-time",
+      "description": "Timestamp the application was rejected, in ISO 8601. `null` only for legacy or partially backfilled rejection records."
     },
     "question_custom_fields": {
       "type": [

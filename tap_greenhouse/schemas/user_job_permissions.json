@@ -14,19 +14,23 @@
       "format": "date-time"
     },
     "job_id": {
-      "type": "integer"
+      "type": "integer",
+      "description": "Id of the job this permission grants the user access to. References a `/v3/jobs` row."
     },
     "user_id": {
-      "type": "integer"
+      "type": "integer",
+      "description": "Id of the user receiving access to the job. References a `/v3/users` row. Site admins are never represented here \u2014 they have implicit access to every non-confidential job \u2014 so a user with a site admin role will not appear in this list."
     },
     "role_id": {
-      "type": "integer"
+      "type": "integer",
+      "description": "Id of the Job Admin role the user holds on this job. References a `/v3/user_roles` row; only roles with `role_type: job_admin` can be granted through this resource."
     },
     "automated": {
       "type": [
         "boolean",
         "null"
-      ]
+      ],
+      "description": "When `true`, the permission was created by an automated permission rule (e.g. a `future_job_permission` that matched the job when it was opened, or an automated permission policy) rather than assigned by hand."
     }
   },
   "description": "Schema for the 'user_job_permissions' stream, linked to the '/v3/user_job_permissions' endpoint."

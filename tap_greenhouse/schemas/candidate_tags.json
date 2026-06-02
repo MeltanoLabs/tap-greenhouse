@@ -14,7 +14,8 @@
       "format": "date-time"
     },
     "name": {
-      "type": "string"
+      "type": "string",
+      "description": "Tag label shown on candidate profiles. Unique per organization, case sensitive."
     }
   },
   "description": "Schema for the 'candidate_tags' stream, linked to the '/v3/candidate_tags' endpoint."

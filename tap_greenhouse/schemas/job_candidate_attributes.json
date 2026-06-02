@@ -14,22 +14,27 @@
       "format": "date-time"
     },
     "job_id": {
-      "type": "integer"
+      "type": "integer",
+      "description": "Id of the job this attribute belongs to. Each job has its own set of `job_candidate_attributes`; there is no org-wide attribute list."
     },
     "candidate_attribute_type_id": {
-      "type": "integer"
+      "type": "integer",
+      "description": "Id of the parent `candidate_attribute_type` this row is an instance of. The same `candidate_attribute_type` can appear on many jobs, but each pairing of job and type has at most one `job_candidate_attribute`."
     },
     "active": {
-      "type": "boolean"
+      "type": "boolean",
+      "description": "`true` when the attribute is in use on the job; `false` after it has been archived from the job's attribute list. Defaults to `true`."
     },
     "sort_order": {
       "type": [
         "integer",
         "null"
-      ]
+      ],
+      "description": "Display priority within the job's attribute list. Lower values sort first. `null` until a user manually reorders the attributes in the Greenhouse UI \u2014 newly added attributes have no explicit sort_order."
     },
     "name": {
-      "type": "string"
+      "type": "string",
+      "description": "Display name of the attribute on this job (e.g. `JavaScript`, `Leadership`). Sourced from the parent `candidate_attribute_type` at creation time and can be edited per job."
     }
   },
   "description": "Schema for the 'job_candidate_attributes' stream, linked to the '/v3/job_candidate_attributes' endpoint."

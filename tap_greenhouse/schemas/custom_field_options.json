@@ -14,22 +14,27 @@
       "format": "date-time"
     },
     "custom_field_id": {
-      "type": "integer"
+      "type": "integer",
+      "description": "Id of the parent custom field this option belongs to. Only fields with `value_type` of `single_select` or `multi_select` carry options."
     },
     "name": {
-      "type": "string"
+      "type": "string",
+      "description": "Display label shown to recruiters and hiring managers in dropdowns (e.g. `Engineering`, `Bachelor's`, `Stanford University`). Unique among active options on the same parent custom field."
     },
     "external_id": {
       "type": [
         "string",
         "null"
-      ]
+      ],
+      "description": "Caller-supplied identifier from the partner's source system (typically an HRIS row id or legacy ATS id). Persisted verbatim as the column `offsite_hris_id` and not interpreted by Greenhouse."
     },
     "sort_order": {
-      "type": "integer"
+      "type": "integer",
+      "description": "Display position within the parent custom field's dropdown. Lower values render first; ties fall back to insertion order. Alias of `priority` in V1/V2."
     },
     "active": {
-      "type": "boolean"
+      "type": "boolean",
+      "description": "`true` while the option is selectable. Set to `false` after deletion \u2014 historical selections on candidates, jobs, and offers are preserved so the value still resolves on existing records."
     }
   },
   "description": "Schema for the 'custom_field_options' stream, linked to the '/v3/custom_field_options' endpoint."

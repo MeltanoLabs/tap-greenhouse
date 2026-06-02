@@ -14,22 +14,26 @@
       "format": "date-time"
     },
     "scorecard_id": {
-      "type": "integer"
+      "type": "integer",
+      "description": "Id of the scorecard this answer belongs to. Every answer is tied to exactly one scorecard, which in turn belongs to a single interviewer's submission on one application."
     },
     "scorecard_question_id": {
-      "type": "integer"
+      "type": "integer",
+      "description": "Id of the `scorecard_question` this answer responds to. The question's `answer_type` (`text`, `yes_no`, `single_select`, `multi_select`) determines which field on the answer is populated: `text` uses `answer`, `yes_no` uses `boolean_value`, and `single_select`/`multi_select` use the `scorecard_question_answer_options` sub-resource."
     },
     "answer": {
       "type": [
         "string",
         "null"
-      ]
+      ],
+      "description": "Free-text response for `text`-type scorecard questions. `null` (or empty string) when the question is `yes_no`, `single_select`, or `multi_select`, or when the interviewer declined to answer. The corresponding tagged-mentions variant is not exposed here \u2014 partners that need `@`-mention resolution should fetch the parent scorecard's `notes_with_tags` instead."
     },
     "boolean_value": {
       "type": [
         "boolean",
         "null"
-      ]
+      ],
+      "description": "Response for `yes_no`-type scorecard questions: `true` for yes, `false` for no, `null` when the question is not `yes_no` or when the interviewer left it blank. Ignored on writes for any question whose `answer_type` is not `yes_no`."
     }
   },
   "description": "Schema for the 'scorecard_question_answers' stream, linked to the '/v3/scorecard_question_answers' endpoint."

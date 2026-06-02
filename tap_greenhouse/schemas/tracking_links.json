@@ -17,46 +17,54 @@
       "type": [
         "integer",
         "null"
-      ]
+      ],
+      "description": "Id of the job this tracking link is scoped to. `null` when the link targets a job board or a job post rather than a specific job."
     },
     "token": {
-      "type": "string"
+      "type": "string",
+      "description": "Unique short-URL token appended to the link as `gh_src=<token>`. Resolves to the full URL `https://grnh.se/<token>` and is the value Greenhouse uses to attribute incoming applications back to this link."
     },
     "source_id": {
       "type": [
         "integer",
         "null"
-      ]
+      ],
+      "description": "Id of the `source` credited when a candidate applies through this link. Applications submitted via the link inherit this `source_id`. `null` for links created before a source was selected."
     },
     "related_post_id": {
       "type": [
         "integer",
         "null"
-      ]
+      ],
+      "description": "Id of the polymorphic record the link is associated with (e.g. a programmatic job ad, a social media post). Use together with `related_post_type` to resolve the referenced record. `null` for links not tied to a related post."
     },
     "related_post_type": {
       "type": [
         "string",
         "null"
-      ]
+      ],
+      "description": "Class name of the polymorphic `related_post` record (e.g. `Application`, `ProgrammaticSourcing::AppcastJobAd`). `null` for links not tied to a related post."
     },
     "referrer_id": {
       "type": [
         "integer",
         "null"
-      ]
+      ],
+      "description": "Id of the referring user credited with surfacing the candidate. Populated for employee-referral links so the referring user is attributed when the candidate applies. `null` when the link is not a referral link."
     },
     "job_board_id": {
       "type": [
         "integer",
         "null"
-      ]
+      ],
+      "description": "Id of the `job_board` this link targets. Set when the link points at an entire board rather than a specific job or post. `null` when the link is scoped to a job or job post."
     },
     "job_post_id": {
       "type": [
         "integer",
         "null"
-      ]
+      ],
+      "description": "Id of the `job_post` this link targets. Set when the link points at a specific public-facing post. `null` when the link is scoped to a job or job board."
     }
   },
   "description": "Schema for the 'tracking_links' stream, linked to the '/v3/tracking_links' endpoint."

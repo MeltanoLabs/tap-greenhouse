@@ -14,28 +14,33 @@
       "format": "date-time"
     },
     "job_id": {
-      "type": "integer"
+      "type": "integer",
+      "description": "Id of the job this kit is configured on."
     },
     "job_interview_id": {
-      "type": "integer"
+      "type": "integer",
+      "description": "Id of the `job_interview` slot this kit belongs to. Each slot on a job's interview plan has exactly one kit."
     },
     "exercises": {
       "type": [
         "string",
         "null"
-      ]
+      ],
+      "description": "Current Interview Prep content surfaced to interviewers \u2014 instructions, exercises, and rubric notes for this slot on this job. Reflects edits made in the job's Interview Kit. If the kit has no override, falls back to the slot's default instructions; the `summary` and `instructions` fields on the `job_interviews` endpoint are static snapshots taken when the slot was first added and do not stay in sync with later edits, so use this field for the live value. May contain HTML."
     },
     "anonymize_candidate": {
       "type": [
         "boolean",
         "null"
-      ]
+      ],
+      "description": "Whether the candidate's name and identifying details are hidden from graders on the scorecard for this slot. Only meaningful for take-home test slots; defaults to `false`."
     },
     "anonymize_resumes": {
       "type": [
         "boolean",
         "null"
-      ]
+      ],
+      "description": "Whether resumes are anonymized for reviewers at this slot. Only meaningful for Application Review and Hiring Manager Review slots and requires the organization to have resume anonymization enabled; defaults to `false`."
     }
   },
   "description": "Schema for the 'interview_kits' stream, linked to the '/v3/interview_kits' endpoint."

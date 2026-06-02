@@ -14,22 +14,27 @@
       "format": "date-time"
     },
     "name": {
-      "type": "string"
+      "type": "string",
+      "description": "Display name of the attribute type (e.g. `JavaScript`, `Leadership`, `Years of experience`). Unique among active, same-draft-status attribute types on the same job."
     },
     "job_id": {
-      "type": "integer"
+      "type": "integer",
+      "description": "Id of the job this attribute type belongs to. Each job carries its own set of attribute types \u2014 there is no org-wide attribute dictionary."
     },
     "sort_order": {
-      "type": "integer"
+      "type": "integer",
+      "description": "Display priority within the job's attribute list. Lower values sort first."
     },
     "active": {
-      "type": "boolean"
+      "type": "boolean",
+      "description": "`true` when the attribute type is in use; `false` after it has been archived from the job's attribute list. Defaults to `true`."
     },
     "is_draft": {
       "type": [
         "boolean",
         "null"
-      ]
+      ],
+      "description": "`true` while the attribute is being authored on a draft job and has not yet been published; `false` or `null` once the attribute is part of the live job."
     }
   },
   "description": "Schema for the 'candidate_attribute_types' stream, linked to the '/v3/candidate_attribute_types' endpoint."
