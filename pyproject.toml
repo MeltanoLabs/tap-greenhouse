@@ -55,7 +55,7 @@ typing = [
     "mypy>=1.16.0",
     "requests-cache",
     "tomli",
-    "ty>=0.0.1-alpha.16",
+    "ty>=0.0.40",
 ]
 
 [tool.hatch.version]
