@@ -47,15 +47,15 @@ dev = [
     "urllib3>=2.7.0",
 ]
 test = [
-    "pytest>=9.0.3",
-    "pytest-github-actions-annotate-failures>=0.3",
+    "pytest>=9.1.1",
+    "pytest-github-actions-annotate-failures>=0.4.2",
     "singer-sdk[testing]",
 ]
 typing = [
     "mypy>=1.16.0",
     "requests-cache",
     "tomli",
-    "ty>=0.0.46",
+    "ty>=0.0.52",
 ]
 
 [tool.hatch.version]
