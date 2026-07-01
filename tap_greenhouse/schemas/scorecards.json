@@ -74,7 +74,7 @@
         "draft",
         "complete"
       ],
-      "description": "Lifecycle status of the scorecard. `draft` is in-progress and not yet submitted; `complete` is submitted (and `submitted_at` is set). Only complete scorecards count toward interview completion and BrightHire-style downstream analysis."
+      "description": "Lifecycle status of the scorecard. `draft` is in-progress and not yet submitted; `complete` is submitted (and `submitted_at` is set). Only complete scorecards count toward interview completion and downstream analysis."
     },
     "public_notes": {
       "type": [
