@@ -26,7 +26,14 @@
         "string",
         "null"
       ],
-      "description": "Free-text response for `text`-type scorecard questions. `null` (or empty string) when the question is `yes_no`, `single_select`, or `multi_select`, or when the interviewer declined to answer. The corresponding tagged-mentions variant is not exposed here \u2014 partners that need `@`-mention resolution should fetch the parent scorecard's `notes_with_tags` instead."
+      "description": "Free-text response for `text`-type scorecard questions. Plain text \u2014 HTML formatting and `@`-mention markup are stripped. `null` (or empty string) when the question is `yes_no`, `single_select`, or `multi_select`, or when the interviewer declined to answer."
+    },
+    "answer_with_tags": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "HTML-formatted version of `answer`, preserving rich-text formatting (bold, italic, etc.) and `@`-mentions as embedded user tags (e.g. `@[User Name](user:123)`). `null` when there is no formatting or markup to preserve (i.e. when the stored value would be identical to `answer`), and under the same conditions as `answer`."
     },
     "boolean_value": {
       "type": [

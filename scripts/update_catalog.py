@@ -39,9 +39,6 @@ def _preprocess_schema(stream_name: str, schema: dict) -> dict:  # noqa: C901, P
     if stream_name == "applications":
         return _make_nullable(schema, ["properties", "answers", "items", "properties", "answer", "type"], "string")
 
-    if stream_name == "candidates":
-        return get_in(["oneOf", 0], schema)
-
     if stream_name == "demographic_answer_options":
         schema = _make_nullable(schema, ["properties", "created_at", "type"], "string")
         schema = _make_nullable(schema, ["properties", "updated_at", "type"], "string")
