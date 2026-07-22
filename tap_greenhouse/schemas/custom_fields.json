@@ -58,7 +58,8 @@
         "header",
         "statement",
         "attachment",
-        "rich_text"
+        "rich_text",
+        "date_of_birth"
       ],
       "description": "Data type and editor. `short_text`, `long_text`, `yes_no`, `single_select`, `multi_select`, `currency`, `currency_range`, `number`, `number_range`, `date`, `url`, `user`, `attachment`, `rich_text`, and the `*_hris` masked-PII variants. Only `single_select` and `multi_select` carry options \u2014 fetch them from `/v3/custom_field_options?custom_field_ids={id}`."
     },
