@@ -73,6 +73,13 @@
       ],
       "description": "Id of the interview stage the candidate is currently in for this application. `null` for prospect applications and applications in a terminal state."
     },
+    "job_interview_stage_id": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "description": "Id of the job interview stage definition (see `GET /v3/job_interview_stages`) the candidate is currently in for this application. `null` for prospect applications and applications in a terminal state."
+    },
     "stage_name": {
       "type": [
         "string",
