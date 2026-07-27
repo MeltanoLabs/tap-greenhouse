@@ -30,7 +30,7 @@ if TYPE_CHECKING:
     from urllib.parse import ParseResult
 
     from singer_sdk import Tap
-    from singer_sdk.helpers.types import Context
+    from singer_sdk.helpers.types import Context, Record
 
 SCHEMAS_DIR = SchemaDirectory(schemas)
 
@@ -124,3 +124,9 @@ class GreenhouseStream(RESTStream):
         if self.replication_key and (start_date := self.get_starting_timestamp(context)):
             params[self.replication_key] = f"gte|{start_date.isoformat()}"
         return params
+
+    @override
+    def post_process(self, row: Record, context: Context | None = None) -> Record | None:
+        if self.name == "custom_fields":
+            row["default_value"] = str(row["default_value"]) if row["default_value"] is not None else None
+        return super().post_process(row, context)
