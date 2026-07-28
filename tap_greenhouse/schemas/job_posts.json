@@ -99,7 +99,10 @@
       "description": "Id of the demographic question set surfaced to candidates on this post for diversity, equity, and inclusion (DE&I) reporting. `null` when the post does not collect demographic data."
     },
     "job_id": {
-      "type": "integer",
+      "type": [
+        "integer",
+        "null"
+      ],
       "description": "Id of the parent job (requisition) this post belongs to. A single job can have multiple posts; the job is the source of truth for the hiring team, openings, and interview plan."
     },
     "job_board_id": {

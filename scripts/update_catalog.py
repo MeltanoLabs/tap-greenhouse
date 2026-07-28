@@ -68,6 +68,9 @@ def _preprocess_schema(stream_name: str, schema: dict) -> dict:  # noqa: C901, P
     if stream_name == "job_candidate_attributes":
         return _make_nullable(schema, ["properties", "sort_order", "type"], "integer")
 
+    if stream_name == "job_posts":
+        return _make_nullable(schema, ["properties", "job_id", "type"], "integer")
+
     if stream_name == "jobs":
         path = ["properties", "custom_fields", "additionalProperties", "additionalProperties"]
         default_props = get_in(path, schema, default=False)
