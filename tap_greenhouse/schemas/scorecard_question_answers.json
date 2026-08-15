@@ -41,6 +41,19 @@
         "null"
       ],
       "description": "Response for `yes_no`-type scorecard questions: `true` for yes, `false` for no, `null` when the question is not `yes_no` or when the interviewer left it blank. Ignored on writes for any question whose `answer_type` is not `yes_no`."
+    },
+    "value": {
+      "type": [
+        "string",
+        "boolean",
+        "integer",
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": "integer"
+      },
+      "description": "Read-only. The answer in the same vocabulary the nested write path accepts (`question_answers[].value` on `POST`/`PATCH /v3/scorecards`), dispatched on the question's `answer_type`: string for `text`, boolean for `yes_no`, the selected option id for `single_select`, an array of selected option ids for `multi_select`. `null` when unanswered."
     }
   },
   "description": "Schema for the 'scorecard_question_answers' stream, linked to the '/v3/scorecard_question_answers' endpoint."

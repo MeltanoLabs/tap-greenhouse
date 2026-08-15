@@ -31,6 +31,10 @@
         "null"
       ],
       "description": "Free-text note the interviewer left for this attribute (e.g. a brief justification for the rating). `null` when no note was provided."
+    },
+    "value": {
+      "type": "string",
+      "description": "Read-only alias of `candidate_attribute_rating`, in the same vocabulary the nested write path accepts (`candidate_attributes[].value` on `POST`/`PATCH /v3/scorecards`). A rating cleared with `value: null` reads back as `no_decision`."
     }
   },
   "description": "Schema for the 'scorecard_candidate_attributes' stream, linked to the '/v3/scorecard_candidate_attributes' endpoint."
