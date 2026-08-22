@@ -99,7 +99,7 @@
           }
         }
       },
-      "description": "Phone numbers on the candidate's profile. Each entry pairs the `value` with a `type` such as `mobile`, `home`, `work`, `skype`, or `other`."
+      "description": "Phone numbers on the candidate's profile. Each entry pairs the `value` with a `type` such as `mobile`, `home`, `work`, `skype`, or `other`. Ordered by type \u2014 `home`, `work`, `mobile`, `skype`, then `other` \u2014 and oldest first within a type."
     },
     "addresses": {
       "type": "array",
@@ -114,7 +114,7 @@
           }
         }
       },
-      "description": "Postal addresses on the candidate's profile. Each entry pairs the `value` with a `type` such as `home`, `work`, or `other`."
+      "description": "Postal addresses on the candidate's profile. Each entry pairs the `value` with a `type` such as `home`, `work`, or `other`. Ordered oldest first."
     },
     "email_addresses": {
       "type": "array",
@@ -129,7 +129,7 @@
           }
         }
       },
-      "description": "Email addresses on the candidate's profile. Each entry pairs the `value` with a `type` such as `personal`, `work`, or `other`."
+      "description": "Email addresses on the candidate's profile. Each entry pairs the `value` with a `type` such as `personal`, `work`, or `other`. Ordered by most recently updated, and oldest first among entries last updated at the same time."
     },
     "website_addresses": {
       "type": "array",
@@ -144,7 +144,7 @@
           }
         }
       },
-      "description": "Personal websites or portfolio URLs on the candidate's profile. Each entry pairs the `value` with a `type` such as `personal`, `company`, `portfolio`, `blog`, or `other`."
+      "description": "Personal websites or portfolio URLs on the candidate's profile. Each entry pairs the `value` with a `type` such as `personal`, `company`, `portfolio`, `blog`, or `other`. Ordered oldest first."
     },
     "social_media_addresses": {
       "type": "array",
@@ -156,7 +156,7 @@
           }
         }
       },
-      "description": "Social media handles or URLs on the candidate's profile. Social entries are untyped \u2014 only the `value` is returned."
+      "description": "Social media handles or URLs on the candidate's profile. Social entries are untyped \u2014 only the `value` is returned. Ordered oldest first."
     },
     "custom_fields": {
       "type": [

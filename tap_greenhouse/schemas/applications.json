@@ -59,6 +59,13 @@
       ],
       "description": "Id of the referrer who credited this application, or `null` if there was no referral. References a referrer, not a Greenhouse user."
     },
+    "rejection_reason_id": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "description": "Id of the rejection reason selected for the application. References a `/v3/rejection_reasons` row scoped to the organization. `null` when the application was rejected without a reason, or has not been rejected."
+    },
     "source_id": {
       "type": [
         "integer",

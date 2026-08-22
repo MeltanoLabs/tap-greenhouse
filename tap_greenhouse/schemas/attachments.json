@@ -46,7 +46,7 @@
     },
     "url": {
       "type": "string",
-      "description": "Time-limited download URL for the underlying file. Links expire after seven days; refetch the attachment to obtain a fresh URL."
+      "description": "Time-limited download URL for the underlying file. The link may be served via a Greenhouse redirect endpoint that issues a fresh short-lived file URL on each request \u2014 HTTP clients should follow redirects when downloading. Links expire after seven days; refetch the attachment to obtain a fresh URL."
     }
   },
   "description": "Schema for the 'attachments' stream, linked to the '/v3/attachments' endpoint."
