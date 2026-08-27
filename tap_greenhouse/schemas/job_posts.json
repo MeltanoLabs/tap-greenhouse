@@ -46,14 +46,7 @@
         "string",
         "null"
       ],
-      "description": "HTML body of the post shown to candidates on the job board. For internal posts this returns the `internal_content` instead. Sanitized server-side \u2014 only a limited element/attribute allowlist (including `iframe`, `video`, `source`) survives. `null` while the post is still being scaffolded."
-    },
-    "internal_content": {
-      "type": [
-        "string",
-        "null"
-      ],
-      "description": "HTML body shown on the internal job board when the post is also configured as internal. `null` for external-only posts. Same sanitization rules as `content`."
+      "description": "HTML body of the post. For posts on an internal job board, this is the internal-only body; for external posts, this is the body shown to candidates. Sanitized server-side \u2014 only a limited element/attribute allowlist (including `iframe`, `video`, `source`) survives. `null` while the post is still being scaffolded."
     },
     "language": {
       "type": [
