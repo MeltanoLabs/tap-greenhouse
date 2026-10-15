@@ -11,7 +11,8 @@
     },
     "updated_at": {
       "type": "string",
-      "format": "date-time"
+      "format": "date-time",
+      "description": "Timestamp the application was last updated, in ISO 8601. Changes to candidate-level data (name, title, company, or last activity) also update it, so activity on one application usually moves this on all of the candidate's applications."
     },
     "agency_note_id": {
       "type": [
@@ -129,7 +130,7 @@
         "null"
       ],
       "format": "date-time",
-      "description": "Timestamp of the most recent activity on this application (notes, emails, stage changes, etc.), in ISO 8601."
+      "description": "Timestamp of recent activity for this application's candidate, in ISO 8601. Most activity (notes, emails, stage changes, etc.) on any of the candidate's applications updates this value on all of them, so it usually matches the candidate's `last_activity_at` rather than reflecting this application alone."
     },
     "location_address": {
       "type": [
