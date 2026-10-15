@@ -133,6 +133,8 @@ def main() -> None:
         sys.exit(1)
 
     openapi = data["document"]["api"]["schema"]
+    with open("openapi.json", "w") as f:  # noqa: PTH123
+        f.write(json.dumps(openapi, indent=2))
 
     stream_paths_to_names = {stream_attrs["path"]: stream_attrs["name"] for stream_attrs in paths["streams"]}
 
